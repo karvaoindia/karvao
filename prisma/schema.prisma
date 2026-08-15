@@ -1,0 +1,160 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  PROPOSAL
+  WON
+  LOST
+}
+
+model Lead {
+  id          String              @id @default(uuid())
+  email       String              @unique
+  name        String
+  phone       String?
+  company     String?
+  status      LeadStatus          @default(NEW)
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  
+  assessments Assessment[]
+  quotations  Quotation[]
+  contactSubs ContactSubmission[]
+}
+
+model Assessment {
+  id              String       @id @default(uuid())
+  leadId          String
+  lead            Lead         @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  answers         Json
+  digitalPresence Int
+  brand           Int
+  acquisition     Int
+  conversion      Int
+  automation      Int
+  measurement     Int
+  overallScore    Int
+  createdAt       DateTime     @default(now())
+  
+  reports         Report[]
+}
+
+model Report {
+  id           String     @id @default(uuid())
+  assessmentId String
+  assessment   Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  accessToken  String     @unique
+  createdAt    DateTime   @default(now())
+}
+
+model Quotation {
+  id        String          @id @default(uuid())
+  leadId    String
+  lead      Lead            @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  goals     String
+  timeline  String
+  budget    String
+  status    String          @default("PENDING")
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  
+  items     QuotationItem[]
+}
+
+model QuotationItem {
+  id          String    @id @default(uuid())
+  quotationId String
+  quotation   Quotation @relation(fields: [quotationId], references: [id], onDelete: Cascade)
+  service     String
+}
+
+model ContactSubmission {
+  id        String   @id @default(uuid())
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  message   String
+  createdAt DateTime @default(now())
+}
+
+// ==================== CMS MODELS ====================
+
+model SiteContent {
+  id        String   @id @default(uuid())
+  key       String   @unique // e.g. "hero_headline", "hero_description", "hero_label"
+  value     String   @db.Text
+  section   String   // e.g. "hero", "challenge", "footer", "seo"
+  label     String   // Human-readable label for admin
+  type      String   @default("text") // "text", "textarea", "richtext", "json"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Project {
+  id          String   @id @default(uuid())
+  name        String
+  category    String
+  description String   @db.Text
+  imageUrl    String?
+  url         String?
+  featured    Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Testimonial {
+  id        String   @id @default(uuid())
+  name      String
+  company   String
+  role      String
+  review    String   @db.Text
+  rating    Int      @default(5)
+  photoUrl  String?
+  featured  Boolean  @default(false)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ScoreCategory {
+  id          String          @id @default(uuid())
+  key         String          @unique // e.g. "digitalPresence"
+  label       String          // e.g. "Website & Digital Presence"
+  weight      Float           @default(0.2)
+  description String?
+  sortOrder   Int             @default(0)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  questions   ScoreQuestion[]
+}
+
+model ScoreQuestion {
+  id           String        @id @default(uuid())
+  categoryId   String
+  category     ScoreCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  questionText String        @db.Text
+  options      Json          // [{ text: string, score: number }]
+  sortOrder    Int           @default(0)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Media {
+  id        String   @id @default(uuid())
+  filename  String
+  url       String
+  altText   String?
+  mimeType  String
+  size      Int
+  folder    String   @default("uploads")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

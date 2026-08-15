@@ -1,0 +1,97 @@
+import React from 'react'
+
+interface Testimonial {
+  id: string
+  name: string
+  role: string
+  company: string
+  review: string
+  rating: number
+}
+
+const testimonials: Testimonial[] = [
+  {
+    id: '1',
+    name: 'Rajesh Kumar',
+    role: 'Founder',
+    company: 'AutoVerse Motors',
+    review: 'Karvao transformed our entire digital presence. Our lead generation increased by 340% in just 4 months. The system they built runs itself — we just watch the pipeline grow.',
+    rating: 5,
+  },
+  {
+    id: '2',
+    name: 'Dr. Priya Sharma',
+    role: 'Director',
+    company: 'HealthFirst Clinics',
+    review: 'Before Karvao, we were losing patients to competitors with better online presence. Now our booking system is fully automated and our clinic is always full.',
+    rating: 5,
+  },
+  {
+    id: '3',
+    name: 'Amit Patel',
+    role: 'CEO',
+    company: 'FreshBite Foods',
+    review: 'The team understands business growth, not just marketing. They connected our website, CRM, delivery system and WhatsApp into one seamless engine.',
+    rating: 5,
+  },
+]
+
+const StarRating: React.FC<{ rating: number }> = ({ rating }) => {
+  return (
+    <div className="flex items-center gap-1">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <svg
+          key={i}
+          className={`w-4 h-4 ${i < rating ? 'text-[#F59E0B]' : 'text-[#E2E8F0]'}`}
+          fill="currentColor"
+          viewBox="0 0 20 20"
+        >
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+        </svg>
+      ))}
+    </div>
+  )
+}
+
+export const ClientReviewsSection: React.FC = () => {
+  return (
+    <section className="py-16 md:py-20 bg-blue-surface border-t border-[#CCE0FF]/40">
+      <div className="page-container">
+        <div className="text-center mb-12">
+          <span className="text-xs font-black tracking-widest text-blue-bright uppercase block mb-3">
+            CLIENT REVIEWS
+          </span>
+          <h2 className="text-3xl md:text-[38px] font-extrabold tracking-tight text-navy">
+            What our clients say.
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {testimonials.map((t) => (
+            <div
+              key={t.id}
+              className="bg-white border border-border rounded-xl p-7 flex flex-col justify-between shadow-[0_1px_3px_rgba(10,25,49,0.04)] hover:shadow-[0_8px_30px_rgba(10,25,49,0.08)] transition-all duration-300"
+            >
+              <div>
+                <StarRating rating={t.rating} />
+                <p className="text-sm text-[#475569] leading-relaxed mt-4 mb-6">
+                  &ldquo;{t.review}&rdquo;
+                </p>
+              </div>
+              <div className="flex items-center gap-3 pt-4 border-t border-border">
+                {/* Avatar placeholder */}
+                <div className="w-10 h-10 rounded-full bg-blue-surface border border-[#CCE0FF] flex items-center justify-center text-blue-bright text-sm font-bold">
+                  {t.name.charAt(0)}
+                </div>
+                <div>
+                  <span className="text-sm font-bold text-navy block">{t.name}</span>
+                  <span className="text-xs text-grey">{t.role}, {t.company}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

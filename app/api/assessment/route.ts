@@ -80,7 +80,7 @@ export async function POST(request: Request) {
       })
 
       return rep
-    })
+    }, { maxWait: 10000, timeout: 20000 })
 
     console.log(`[EMAIL DISPATCH] Mock Email Sent: Diagnostic Report generated with token ${report.accessToken} for ${name} (${email})`)
 

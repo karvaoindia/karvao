@@ -8,8 +8,17 @@ import { SolutionsSection } from '@/components/marketing/SolutionsSection'
 import { GrowthCapabilityBar } from '@/components/marketing/GrowthCapabilityBar'
 import { ProjectsSection } from '@/components/marketing/ProjectsSection'
 import { ClientReviewsSection } from '@/components/marketing/ClientReviewsSection'
+import { prisma } from '@/lib/prisma'
 
-export default function HomePage() {
+async function getContent(key: string, fallback: string, contentMap: Record<string, string>): Promise<string> {
+  return contentMap[key] || fallback
+}
+
+export default async function HomePage() {
+  const contentItems = await prisma.siteContent.findMany({
+    select: { key: true, value: true },
+  })
+  const contentMap = Object.fromEntries(contentItems.map(item => [item.key, item.value]))
   return (
     <div className="w-full bg-white">
       {/* 1. HERO */}
@@ -27,7 +36,7 @@ export default function HomePage() {
               <span className="text-blue-bright">systems.</span>
             </h1>
             <p className="text-base md:text-[17px] text-[#475569] max-w-md leading-relaxed">
-              We help businesses build their digital presence, generate demand, improve conversions, automate operations and measure what drives growth.
+              {await getContent('hero_subheadline', 'We help businesses build their digital presence, generate demand, improve conversions, automate operations and measure what drives growth.', contentMap)}
             </p>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto mt-2">
               <Link href="/quotation" className="flex-1 sm:flex-none">
@@ -76,13 +85,13 @@ export default function HomePage() {
               THE CHALLENGE
             </span>
             <h2 className="text-4xl md:text-[48px] font-black tracking-tight text-navy leading-tight">
-              Growth gets complicated<br />when everything works<br />separately.
+              {await getContent('challenge_headline', 'Growth gets complicated when everything works separately.', contentMap)}
             </h2>
             <p className="text-base md:text-[17px] text-[#475569] leading-relaxed max-w-md">
-              Your website, marketing, customer follow-up and reporting shouldn&apos;t operate as disconnected pieces.
+              {await getContent('challenge_subheadline', 'Your website, marketing, customer follow-up and reporting shouldn\'t operate as disconnected pieces.', contentMap)}
             </p>
             <p className="text-sm md:text-base font-black text-blue-bright">
-              Karvao connects the system.
+              {await getContent('challenge_cta', 'Karvao connects the system.', contentMap)}
             </p>
           </div>
 
@@ -250,10 +259,10 @@ export default function HomePage() {
               DIAGNOSE
             </span>
             <h2 className="text-4xl md:text-[46px] font-black tracking-tight text-navy leading-tight">
-              How ready is your business<br />for growth?
+              {await getContent('score_headline', 'How ready is your business for growth?', contentMap)}
             </h2>
             <p className="text-base md:text-[17px] text-[#475569] leading-relaxed max-w-lg">
-              Get a quick assessment of your digital presence, customer acquisition, conversion, automation and measurement.
+              {await getContent('score_subheadline', 'Get a quick assessment of your digital presence, customer acquisition, conversion, automation and measurement.', contentMap)}
             </p>
             <div className="flex flex-col items-start gap-4 w-full mt-2">
               <Link href="/business-score" tabIndex={-1}>
@@ -283,7 +292,7 @@ export default function HomePage() {
               INDUSTRIES
             </span>
             <h2 className="text-3xl md:text-[38px] font-extrabold tracking-tight text-navy">
-              Built around how your business works.
+              {await getContent('industries_headline', 'Built around how your business works.', contentMap)}
             </h2>
           </div>
 

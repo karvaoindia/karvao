@@ -1,47 +1,20 @@
 import React from 'react'
 import Link from 'next/link'
 import { Button } from '../ui/Button'
+import { prisma } from '@/lib/prisma'
 
-interface Project {
-  id: string
-  name: string
-  category: string
-  description: string
-  image: string
-}
-
-const projects: Project[] = [
-  {
-    id: '1',
-    name: 'AutoVerse Digital Platform',
-    category: 'Auto Dealers',
-    description: 'Complete digital transformation for a leading automobile dealership group — website, CRM, and automated lead follow-up.',
-    image: '/projects/auto-dealer.jpg',
-  },
-  {
-    id: '2',
-    name: 'HealthFirst Clinic Network',
-    category: 'Healthcare',
-    description: 'Multi-location clinic booking system with WhatsApp automation and patient engagement workflows.',
-    image: '/projects/healthcare.jpg',
-  },
-  {
-    id: '3',
-    name: 'FreshBite Restaurant Chain',
-    category: 'Restaurants & Food',
-    description: 'Online ordering platform with delivery integration, loyalty program, and social media marketing.',
-    image: '/projects/restaurant.jpg',
-  },
-  {
-    id: '4',
-    name: 'PrimeNest Realty',
-    category: 'Real Estate',
-    description: 'Property listing portal with lead capture, virtual tour integration, and automated follow-up sequences.',
-    image: '/projects/real-estate.jpg',
-  },
-]
-
-export const ProjectsSection: React.FC = () => {
+export const ProjectsSection: React.FC = async () => {
+  const [projects, contentItems] = await Promise.all([
+    prisma.project.findMany({
+      orderBy: { sortOrder: 'asc' },
+      take: 4,
+    }),
+    prisma.siteContent.findMany({
+      where: { section: 'projects' },
+      select: { key: true, value: true },
+    }),
+  ])
+  const contentMap = Object.fromEntries(contentItems.map(item => [item.key, item.value]))
   return (
     <section className="py-16 md:py-20 bg-white border-t border-border">
       <div className="page-container">
@@ -51,7 +24,7 @@ export const ProjectsSection: React.FC = () => {
               PROJECTS
             </span>
             <h2 className="text-3xl md:text-[38px] font-extrabold tracking-tight text-navy">
-              Projects that drive real results.
+              {contentMap['projects_headline'] || 'Projects that drive real results.'}
             </h2>
           </div>
           <Link href="/solutions" tabIndex={-1}>
@@ -67,13 +40,17 @@ export const ProjectsSection: React.FC = () => {
               key={project.id}
               className="group bg-white border border-border rounded-xl overflow-hidden transition-all duration-300 hover:shadow-[0_8px_30px_rgba(10,25,49,0.08)] hover:border-blue-bright/20"
             >
-              {/* Image placeholder */}
+              {/* Image */}
               <div className="w-full h-48 bg-blue-surface flex items-center justify-center overflow-hidden">
-                <div className="w-full h-full bg-gradient-to-br from-[#E8F2FB] to-[#F0F6FF] flex items-center justify-center">
-                  <svg className="w-12 h-12 text-blue-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                </div>
+                {project.imageUrl ? (
+                  <img src={project.imageUrl} alt={project.name} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-[#E8F2FB] to-[#F0F6FF] flex items-center justify-center">
+                    <svg className="w-12 h-12 text-blue-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                )}
               </div>
               <div className="p-5">
                 <span className="text-[10px] font-bold text-blue-bright uppercase tracking-wider">

@@ -1,40 +1,5 @@
 import React from 'react'
-
-interface Testimonial {
-  id: string
-  name: string
-  role: string
-  company: string
-  review: string
-  rating: number
-}
-
-const testimonials: Testimonial[] = [
-  {
-    id: '1',
-    name: 'Rajesh Kumar',
-    role: 'Founder',
-    company: 'AutoVerse Motors',
-    review: 'Karvao transformed our entire digital presence. Our lead generation increased by 340% in just 4 months. The system they built runs itself — we just watch the pipeline grow.',
-    rating: 5,
-  },
-  {
-    id: '2',
-    name: 'Dr. Priya Sharma',
-    role: 'Director',
-    company: 'HealthFirst Clinics',
-    review: 'Before Karvao, we were losing patients to competitors with better online presence. Now our booking system is fully automated and our clinic is always full.',
-    rating: 5,
-  },
-  {
-    id: '3',
-    name: 'Amit Patel',
-    role: 'CEO',
-    company: 'FreshBite Foods',
-    review: 'The team understands business growth, not just marketing. They connected our website, CRM, delivery system and WhatsApp into one seamless engine.',
-    rating: 5,
-  },
-]
+import { prisma } from '@/lib/prisma'
 
 const StarRating: React.FC<{ rating: number }> = ({ rating }) => {
   return (
@@ -53,7 +18,18 @@ const StarRating: React.FC<{ rating: number }> = ({ rating }) => {
   )
 }
 
-export const ClientReviewsSection: React.FC = () => {
+export const ClientReviewsSection: React.FC = async () => {
+  const [testimonials, contentItems] = await Promise.all([
+    prisma.testimonial.findMany({
+      orderBy: { sortOrder: 'asc' },
+      take: 3,
+    }),
+    prisma.siteContent.findMany({
+      where: { section: 'reviews' },
+      select: { key: true, value: true },
+    }),
+  ])
+  const contentMap = Object.fromEntries(contentItems.map(item => [item.key, item.value]))
   return (
     <section className="py-16 md:py-20 bg-blue-surface border-t border-[#CCE0FF]/40">
       <div className="page-container">
@@ -62,7 +38,7 @@ export const ClientReviewsSection: React.FC = () => {
             CLIENT REVIEWS
           </span>
           <h2 className="text-3xl md:text-[38px] font-extrabold tracking-tight text-navy">
-            What our clients say.
+            {contentMap['reviews_headline'] || 'What our clients say.'}
           </h2>
         </div>
 

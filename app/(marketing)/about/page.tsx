@@ -1,23 +1,29 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
+import { prisma } from '@/lib/prisma'
 
 export const metadata: Metadata = {
   title: 'About Us',
   description: 'Karvao India is a digital growth partner for businesses — helping them build, attract, convert, automate and measure growth.',
 }
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const contentItems = await prisma.siteContent.findMany({
+    where: { section: 'about' },
+    select: { key: true, value: true },
+  })
+  const contentMap = Object.fromEntries(contentItems.map(item => [item.key, item.value]))
   return (
     <div className="w-full bg-white">
       <section className="py-16 md:py-20 bg-white border-b border-border">
         <div className="page-container max-w-3xl">
           <span className="text-xs font-black tracking-widest text-blue-bright uppercase block mb-4">ABOUT US</span>
           <h1 className="text-4xl md:text-[52px] font-black tracking-tight text-navy leading-tight mb-6">
-            We grow businesses.<br />Not just their metrics.
+            {contentMap['about_headline'] || 'We grow businesses. Not just their metrics.'}
           </h1>
           <p className="text-base md:text-lg text-[#475569] leading-relaxed">
-            Karvao India is a digital growth partner for local and regional businesses across India. We combine strategy, technology and execution to build sustainable growth systems — not one-off campaigns.
+            {contentMap['about_subheadline'] || 'Karvao India is a digital growth partner for local and regional businesses across India. We combine strategy, technology and execution to build sustainable growth systems — not one-off campaigns.'}
           </p>
         </div>
       </section>

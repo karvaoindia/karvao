@@ -314,24 +314,24 @@ export default async function HomePage() {
       <SolutionsSection />
 
       {/* 6. INDUSTRIES */}
-      <section className="py-20 md:py-28 bg-white border-t border-border" id="industries">
+      <section className="pt-14 pb-12 md:pt-16 md:pb-14 bg-white border-t border-border" id="industries">
         <div className="page-container">
           <RevealOnScroll>
-            <div className="text-center mb-14">
-              <span className="text-xs font-black tracking-widest text-blue-bright uppercase block mb-4">
+            <div className="text-center mb-6">
+              <span className="text-[11px] font-black tracking-[0.2em] text-blue-bright uppercase block mb-3">
                 INDUSTRIES
               </span>
-              <h2 className="text-3xl md:text-[40px] font-extrabold tracking-tight text-navy leading-tight">
+              <h2 className="text-[28px] md:text-[40px] font-extrabold tracking-tight text-navy leading-tight">
                 {await getContent('industries_headline', 'Built around how your business works.', contentMap)}
               </h2>
             </div>
           </RevealOnScroll>
 
           <RevealOnScroll delay={0.1}>
-            <div className="flex items-center gap-4 overflow-x-auto pb-4 scrollbar-hide">
-              <button aria-label="Previous industries" className="w-10 h-10 rounded-full border border-border/60 bg-white flex items-center justify-center text-grey shadow-[0_1px_4px_rgba(10,25,49,0.04)] hover:border-blue-bright hover:text-blue-bright hover:shadow-[0_2px_8px_rgba(0,102,255,0.1)] transition-all flex-shrink-0">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+            <div className="flex items-center gap-3 overflow-x-auto pb-3 scrollbar-hide">
+              <button aria-label="Previous industries" className="w-9 h-9 rounded-full border border-border/60 bg-white flex items-center justify-center text-grey shadow-[0_1px_3px_rgba(10,25,49,0.04)] hover:border-blue-bright hover:text-blue-bright hover:shadow-[0_2px_8px_rgba(0,102,255,0.1)] transition-all flex-shrink-0">
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
 
@@ -343,30 +343,30 @@ export default async function HomePage() {
                 { name: 'Retail & D2C', icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /> },
                 { name: 'Education', icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /> },
               ].map((ind) => (
-                <div key={ind.name} className="group flex flex-col items-center gap-3 min-w-[130px] text-center cursor-default">
-                  <div className="w-[72px] h-[72px] rounded-2xl bg-blue-surface/80 border border-[#CCE0FF]/40 flex items-center justify-center group-hover:border-blue-bright/50 group-hover:bg-[#EBF4FF] group-hover:shadow-[0_4px_16px_rgba(0,102,255,0.08)] transition-all duration-300">
-                    <svg className="w-7 h-7 text-blue-medium group-hover:text-blue-bright transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div key={ind.name} className="group flex flex-col items-center gap-2.5 min-w-[110px] text-center cursor-default">
+                  <div className="w-[64px] h-[64px] rounded-2xl bg-blue-surface/80 border border-[#CCE0FF]/40 flex items-center justify-center group-hover:border-blue-bright/50 group-hover:bg-[#EBF4FF] group-hover:shadow-[0_4px_16px_rgba(0,102,255,0.08)] group-hover:-translate-y-[3px] group-hover:scale-[1.05] transition-all duration-200 ease-out">
+                    <svg className="w-6 h-6 text-blue-medium group-hover:text-blue-bright transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       {ind.icon}
                     </svg>
                   </div>
-                  <span className="text-[13px] font-bold text-navy group-hover:text-blue-bright transition-colors">{ind.name}</span>
+                  <span className="text-[13px] font-semibold text-navy group-hover:text-blue-bright transition-colors duration-200">{ind.name}</span>
                 </div>
               ))}
 
-              <button aria-label="Next industries" className="w-10 h-10 rounded-full border border-border/60 bg-white flex items-center justify-center text-grey shadow-[0_1px_4px_rgba(10,25,49,0.04)] hover:border-blue-bright hover:text-blue-bright hover:shadow-[0_2px_8px_rgba(0,102,255,0.1)] transition-all flex-shrink-0">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+              <button aria-label="Next industries" className="w-9 h-9 rounded-full border border-border/60 bg-white flex items-center justify-center text-grey shadow-[0_1px_3px_rgba(10,25,49,0.04)] hover:border-blue-bright hover:text-blue-bright hover:shadow-[0_2px_8px_rgba(0,102,255,0.1)] transition-all flex-shrink-0">
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
                 </svg>
               </button>
             </div>
           </RevealOnScroll>
 
           <RevealOnScroll delay={0.2}>
-            <div className="flex items-center justify-center gap-2 mt-8">
-              <span className="text-xs font-bold text-grey">1 / 6</span>
+            <div className="flex items-center justify-center gap-2 mt-4">
+              <span className="text-[11px] font-bold text-grey">1 / 6</span>
               <div className="flex items-center gap-1.5">
                 {[0,1,2,3,4,5].map((i) => (
-                  <span key={i} className={`block rounded-full transition-all ${ i === 0 ? 'w-4 h-1.5 bg-blue-bright' : 'w-1.5 h-1.5 bg-[#CBD5E1]'}`} />
+                  <span key={i} className={`block rounded-full transition-all duration-300 ${ i === 0 ? 'w-4 h-1.5 bg-blue-bright' : 'w-1.5 h-1.5 bg-[#CBD5E1]'}`} />
                 ))}
               </div>
             </div>

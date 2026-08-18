@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { isAdminAuthenticated } from '@/lib/adminAuth'
+import { revalidatePath } from 'next/cache'
 
 interface Params {
   params: Promise<{ id: string }>
@@ -18,6 +19,8 @@ export async function PATCH(request: Request, { params }: Params) {
     where: { id },
     data: { value },
   })
+
+  revalidatePath('/', 'layout')
 
   return NextResponse.json({ success: true, item: updated })
 }

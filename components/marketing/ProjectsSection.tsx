@@ -16,14 +16,14 @@ export const ProjectsSection: React.FC = async () => {
   ])
   const contentMap = Object.fromEntries(contentItems.map(item => [item.key, item.value]))
   return (
-    <section className="py-20 md:py-24 bg-white border-t border-border">
+    <section className="py-14 md:py-24 bg-white border-t border-border">
       <div className="page-container">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 md:gap-6 mb-8 md:mb-14">
           <div>
-            <span className="text-xs font-black tracking-widest text-blue-bright uppercase block mb-4">
+            <span className="text-xs font-black tracking-widest text-blue-bright uppercase block mb-3 md:mb-4">
               PROJECTS
             </span>
-            <h2 className="text-3xl md:text-[40px] font-extrabold tracking-tight text-navy leading-tight">
+            <h2 className="text-[24px] sm:text-3xl md:text-[40px] font-extrabold tracking-tight text-navy leading-tight">
               {contentMap['projects_headline'] || 'Projects that drive real results.'}
             </h2>
           </div>

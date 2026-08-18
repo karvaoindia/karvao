@@ -47,12 +47,12 @@ const capabilities = [
 
 export const GrowthCapabilityBar: React.FC = () => {
   return (
-    <section className="py-14 md:py-16 bg-blue-surface/60 border-y border-[#CCE0FF]/30">
+    <section className="py-10 md:py-16 bg-blue-surface/60 border-y border-[#CCE0FF]/30">
       <div className="page-container">
-        <p className="text-center text-[13px] font-semibold text-[#475569] mb-10 tracking-wide">
+        <p className="text-center text-[13px] font-semibold text-[#475569] mb-6 md:mb-10 tracking-wide">
           Helping businesses improve
         </p>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-4 text-center">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-5 md:gap-4 text-center">
           {capabilities.map((cap) => (
             <div
               key={cap.label}

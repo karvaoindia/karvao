@@ -48,26 +48,26 @@ const solutions = [
 export default function SolutionsPage() {
   return (
     <div className="w-full bg-white">
-      <section className="py-16 md:py-20 bg-white border-b border-border">
+      <section className="py-10 md:py-20 bg-white border-b border-border">
         <div className="page-container text-center">
           <span className="text-xs font-black tracking-widest text-blue-bright uppercase block mb-4">SOLUTIONS</span>
-          <h1 className="text-4xl md:text-[52px] font-black tracking-tight text-navy leading-tight mb-6">
-            Everything your business<br />needs to move forward.
+          <h1 className="text-[28px] sm:text-4xl md:text-[52px] font-black tracking-tight text-navy leading-tight mb-4 md:mb-6">
+            Everything your business<br className="hidden sm:block" /> needs to move forward.
           </h1>
-          <p className="text-base md:text-lg text-[#475569] max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg text-[#475569] max-w-2xl mx-auto leading-relaxed">
             Five interconnected systems that work together to build, grow, and scale your business — not five disconnected services.
           </p>
         </div>
       </section>
 
-      <section className="py-12 md:py-16 bg-white">
-        <div className="page-container flex flex-col gap-16">
+      <section className="py-8 md:py-16 bg-white">
+        <div className="page-container flex flex-col gap-10 md:gap-16">
           {solutions.map((sol, idx) => (
-            <div key={sol.id} id={sol.id} className={`grid grid-cols-1 md:grid-cols-2 gap-12 items-center ${idx % 2 === 1 ? 'md:[&>*:first-child]:order-2' : ''}`}>
-              <div className="flex flex-col gap-5">
+            <div key={sol.id} id={sol.id} className={`grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center ${idx % 2 === 1 ? 'md:[&>*:first-child]:order-2' : ''}`}>
+              <div className="flex flex-col gap-4 md:gap-5">
                 <span className="text-xs font-black tracking-widest text-blue-bright uppercase">{sol.tagline}</span>
-                <h2 className="text-3xl md:text-4xl font-black text-navy tracking-tight">{sol.label}</h2>
-                <p className="text-base text-[#475569] leading-relaxed">{sol.description}</p>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-navy tracking-tight">{sol.label}</h2>
+                <p className="text-sm sm:text-base text-[#475569] leading-relaxed">{sol.description}</p>
                 <ul className="flex flex-col gap-2.5 mt-2">
                   {sol.bullets.map((b) => (
                     <li key={b} className="flex items-center gap-2.5 text-sm font-bold text-navy">

@@ -64,13 +64,13 @@ export const SolutionsSection: React.FC = () => {
   ]
 
   return (
-    <section className="py-20 md:py-24 bg-white border-t border-border" id="solutions">
+    <section className="py-14 md:py-24 bg-white border-t border-border" id="solutions">
       <div className="page-container">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 md:mb-16">
           <span className="text-xs font-black tracking-widest text-blue-bright uppercase block mb-4">
             SOLUTIONS
           </span>
-          <h2 className="text-3xl md:text-[40px] font-extrabold tracking-tight text-navy leading-tight">
+          <h2 className="text-[24px] sm:text-3xl md:text-[40px] font-extrabold tracking-tight text-navy leading-tight">
             Everything your business needs to move forward.
           </h2>
         </div>

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { isAdminAuthenticated } from '@/lib/adminAuth'
+import { revalidatePath } from 'next/cache'
 
 interface Params {
   params: Promise<{ id: string }>
@@ -26,6 +27,8 @@ export async function PATCH(request: Request, { params }: Params) {
     },
   })
 
+  revalidatePath('/', 'layout')
+
   return NextResponse.json({ success: true, project: updated })
 }
 
@@ -37,6 +40,8 @@ export async function DELETE(request: Request, { params }: Params) {
   const { id } = await params
 
   await prisma.project.delete({ where: { id } })
+
+  revalidatePath('/', 'layout')
 
   return NextResponse.json({ success: true })
 }

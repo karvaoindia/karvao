@@ -4,7 +4,7 @@ import React from 'react'
 
 export const GrowthSystemVisual: React.FC = () => {
   return (
-    <div className="relative w-full max-w-[500px] h-[500px] mx-auto select-none" aria-hidden="true">
+    <div className="relative w-full max-w-[500px] h-[320px] sm:h-[400px] md:h-[500px] mx-auto select-none" aria-hidden="true">
       <svg className="absolute inset-0 w-full h-full" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">

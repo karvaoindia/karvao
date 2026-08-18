@@ -23,17 +23,17 @@ export default async function HomePage() {
   return (
     <div className="w-full bg-white">
       {/* 1. HERO */}
-      <section className="relative pt-6 pb-16 md:pt-10 md:pb-24 overflow-hidden bg-white">
-        <div className="page-container grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+      <section className="relative pt-4 pb-10 sm:pt-6 sm:pb-16 md:pt-10 md:pb-24 overflow-hidden bg-white">
+        <div className="page-container grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
           {/* Hero Left Content */}
-          <div className="w-full flex flex-col items-start gap-6">
+          <div className="w-full flex flex-col items-start gap-5 md:gap-6">
             <RevealOnScroll>
               <span className="text-[11px] font-black tracking-[0.2em] text-blue-bright uppercase block">
                 DIGITAL GROWTH PARTNER FOR BUSINESSES
               </span>
             </RevealOnScroll>
             <RevealOnScroll delay={0.1}>
-              <h1 className="text-[44px] sm:text-[56px] md:text-[72px] lg:text-[80px] font-black tracking-tight text-navy leading-[1.02]">
+              <h1 className="text-[36px] sm:text-[44px] md:text-[72px] lg:text-[80px] font-black tracking-tight text-navy leading-[1.05] md:leading-[1.02]">
                 Build better.<br />
                 Grow smarter.<br />
                 Scale with<br />
@@ -88,17 +88,17 @@ export default async function HomePage() {
       <GrowthCapabilityBar />
 
       {/* 3. CHALLENGE SECTION */}
-      <section className="py-20 md:py-28 bg-white">
-        <div className="page-container grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20 items-center">
+      <section className="py-14 md:py-28 bg-white">
+        <div className="page-container grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
           {/* Left Text */}
-          <div className="w-full flex flex-col items-start gap-6">
+          <div className="w-full flex flex-col items-start gap-5 md:gap-6">
             <RevealOnScroll>
               <span className="text-[11px] font-black tracking-[0.2em] text-blue-bright uppercase block">
                 THE CHALLENGE
               </span>
             </RevealOnScroll>
             <RevealOnScroll delay={0.1}>
-              <h2 className="text-[32px] md:text-[44px] font-black tracking-tight text-navy leading-[1.1]">
+              <h2 className="text-[28px] sm:text-[32px] md:text-[44px] font-black tracking-tight text-navy leading-[1.1]">
                 {await getContent('challenge_headline', 'Growth gets complicated when everything works separately.', contentMap)}
               </h2>
             </RevealOnScroll>
@@ -116,9 +116,9 @@ export default async function HomePage() {
 
           {/* Right Visual (Tangled vs One Growth Engine) */}
           <RevealOnScroll delay={0.2}>
-            <div className="relative w-full max-w-[520px] h-[340px] flex items-center justify-between px-8 bg-white border border-border/60 rounded-3xl py-10 shadow-[0_2px_12px_rgba(10,25,49,0.04)]">
+            <div className="relative w-full max-w-[520px] h-auto aspect-[520/340] flex items-center justify-between px-4 sm:px-8 bg-white border border-border/60 rounded-3xl py-6 sm:py-10 shadow-[0_2px_12px_rgba(10,25,49,0.04)]">
               {/* Left side: Tangled network */}
-              <div className="relative w-[190px] h-[190px]">
+              <div className="relative w-[42%] aspect-square">
                 {/* Google */}
                 <div className="absolute top-[24px] left-[10px] w-9 h-9 rounded-full bg-white border border-border/60 flex items-center justify-center shadow-[0_2px_8px_rgba(10,25,49,0.06)] z-20">
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -173,20 +173,20 @@ export default async function HomePage() {
               </div>
 
               {/* Middle Arrow */}
-              <div className="flex items-center justify-center text-[#CBD5E1] mx-2">
-                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex items-center justify-center text-[#CBD5E1] mx-1 sm:mx-2">
+                <svg className="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </div>
 
               {/* Right side: Unified Karvao Box */}
-              <div className="w-[200px] flex flex-col items-center gap-3">
-                <div className="w-full py-8 px-4 bg-white border border-border/60 rounded-2xl flex flex-col items-center justify-center shadow-[0_2px_8px_rgba(10,25,49,0.04)]">
-                  <span className="text-base font-black text-navy leading-none">KARVAO</span>
-                  <span className="text-[8px] font-bold text-grey tracking-[0.2em] leading-none mt-0.5">INDIA</span>
-                  <div className="w-10 h-0.5 bg-blue-bright rounded-full mt-4" />
+              <div className="w-[38%] flex flex-col items-center gap-2 sm:gap-3">
+                <div className="w-full py-5 sm:py-8 px-3 sm:px-4 bg-white border border-border/60 rounded-2xl flex flex-col items-center justify-center shadow-[0_2px_8px_rgba(10,25,49,0.04)]">
+                  <span className="text-sm sm:text-base font-black text-navy leading-none">KARVAO</span>
+                  <span className="text-[7px] sm:text-[8px] font-bold text-grey tracking-[0.2em] leading-none mt-0.5">INDIA</span>
+                  <div className="w-8 sm:w-10 h-0.5 bg-blue-bright rounded-full mt-3 sm:mt-4" />
                 </div>
-                <span className="text-[10px] font-black text-blue-bright tracking-wide text-center uppercase block mt-1 leading-normal">
+                <span className="text-[9px] sm:text-[10px] font-black text-blue-bright tracking-wide text-center uppercase block mt-1 leading-normal">
                   One System.<br />One Growth Engine.
                 </span>
               </div>
@@ -196,12 +196,12 @@ export default async function HomePage() {
       </section>
 
       {/* 4. BUSINESS GROWTH SCORE DIAGNOSE */}
-      <section className="py-20 md:py-28 bg-blue-surface/50 border-y border-[#CCE0FF]/30">
-        <div className="page-container grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+      <section className="py-14 md:py-28 bg-blue-surface/50 border-y border-[#CCE0FF]/30">
+        <div className="page-container grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
           {/* Score Card preview left column */}
           <RevealOnScroll>
             <div className="w-full flex justify-center">
-              <Card className="w-full max-w-[460px] border border-border/60 shadow-[0_2px_12px_rgba(10,25,49,0.04)] p-8 bg-white rounded-3xl flex flex-col gap-6">
+              <Card className="w-full max-w-[460px] border border-border/60 shadow-[0_2px_12px_rgba(10,25,49,0.04)] p-5 sm:p-8 bg-white rounded-3xl flex flex-col gap-4 sm:gap-6">
                 <div className="border-b border-border/60 pb-4">
                   <span className="text-[10px] font-black text-grey uppercase tracking-[0.15em] block">Business Growth Score</span>
                 </div>
@@ -275,14 +275,14 @@ export default async function HomePage() {
           </RevealOnScroll>
 
           {/* Right Text */}
-          <div className="w-full flex flex-col items-start gap-6">
+          <div className="w-full flex flex-col items-start gap-5 md:gap-6">
             <RevealOnScroll>
               <span className="text-[11px] font-black tracking-[0.2em] text-blue-bright uppercase block">
                 DIAGNOSE
               </span>
             </RevealOnScroll>
             <RevealOnScroll delay={0.1}>
-              <h2 className="text-[32px] md:text-[44px] font-black tracking-tight text-navy leading-[1.1]">
+              <h2 className="text-[28px] sm:text-[32px] md:text-[44px] font-black tracking-tight text-navy leading-[1.1]">
                 {await getContent('score_headline', 'How ready is your business for growth?', contentMap)}
               </h2>
             </RevealOnScroll>
@@ -314,14 +314,14 @@ export default async function HomePage() {
       <SolutionsSection />
 
       {/* 6. INDUSTRIES */}
-      <section className="pt-14 pb-12 md:pt-16 md:pb-14 bg-white border-t border-border" id="industries">
+      <section className="pt-10 pb-8 md:pt-16 md:pb-14 bg-white border-t border-border" id="industries">
         <div className="page-container">
           <RevealOnScroll>
-            <div className="text-center mb-6">
+            <div className="text-center mb-5 md:mb-6">
               <span className="text-[11px] font-black tracking-[0.2em] text-blue-bright uppercase block mb-3">
                 INDUSTRIES
               </span>
-              <h2 className="text-[28px] md:text-[40px] font-extrabold tracking-tight text-navy leading-tight">
+              <h2 className="text-[24px] sm:text-[28px] md:text-[40px] font-extrabold tracking-tight text-navy leading-tight">
                 {await getContent('industries_headline', 'Built around how your business works.', contentMap)}
               </h2>
             </div>

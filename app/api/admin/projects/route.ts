@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { isAdminAuthenticated } from '@/lib/adminAuth'
+import { revalidatePath } from 'next/cache'
+import { normalizeImageUrl } from '@/lib/imageUrls'
 
 export async function GET() {
   if (!(await isAdminAuthenticated())) {
@@ -31,6 +33,8 @@ export async function POST(request: Request) {
       sortOrder: body.sortOrder || 0,
     },
   })
+
+  revalidatePath('/', 'layout')
 
   return NextResponse.json({ success: true, project })
 }

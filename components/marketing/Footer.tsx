@@ -3,8 +3,8 @@ import Link from 'next/link'
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-navy text-white pt-20 pb-14">
-      <div className="page-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-14 lg:gap-10">
+    <footer className="bg-navy text-white pt-12 pb-10 md:pt-20 md:pb-14">
+      <div className="page-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-14 lg:gap-10">
         {/* Branding & Socials */}
         <div className="flex flex-col gap-7 lg:col-span-1">
           <Link href="/" className="flex flex-col items-start self-start" aria-label="Karvao India Homepage">
@@ -87,7 +87,7 @@ export const Footer: React.FC = () => {
       </div>
 
       {/* Footer Bottom */}
-      <div className="page-container mt-14 pt-7 border-t border-white/[0.08] flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#64748B]">
+      <div className="page-container mt-8 md:mt-14 pt-5 md:pt-7 border-t border-white/[0.08] flex flex-col md:flex-row items-center justify-between gap-3 md:gap-4 text-xs text-[#64748B]">
         <div className="flex items-center gap-6">
           <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
           <Link href="/terms" className="hover:text-white transition-colors">Terms &amp; Conditions</Link>

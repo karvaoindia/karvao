@@ -73,23 +73,23 @@ const industries = [
 export default function IndustriesPage() {
   return (
     <div className="w-full bg-white">
-      <section className="py-16 md:py-20 bg-white border-b border-border">
+      <section className="py-10 md:py-20 bg-white border-b border-border">
         <div className="page-container text-center">
           <span className="text-xs font-black tracking-widest text-blue-bright uppercase block mb-4">INDUSTRIES</span>
-          <h1 className="text-4xl md:text-[52px] font-black tracking-tight text-navy leading-tight mb-6">
-            Built for your industry.<br />Designed for growth.
+          <h1 className="text-[28px] sm:text-4xl md:text-[52px] font-black tracking-tight text-navy leading-tight mb-4 md:mb-6">
+            Built for your industry.<br className="hidden sm:block" /> Designed for growth.
           </h1>
-          <p className="text-base md:text-lg text-[#475569] max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg text-[#475569] max-w-2xl mx-auto leading-relaxed">
             Whether you run a clinic, a showroom or a restaurant — we understand your customers, your challenges, and what moves the needle.
           </p>
         </div>
       </section>
 
-      <section className="py-12 md:py-16 bg-white">
+      <section className="py-8 md:py-16 bg-white">
         <div className="page-container">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {industries.map((ind) => (
-              <div key={ind.id} className="border border-border rounded-2xl p-8 flex flex-col gap-5 hover:border-blue-bright/30 hover:shadow-[0_8px_30px_rgba(10,25,49,0.08)] transition-all duration-300 group">
+              <div key={ind.id} className="border border-border rounded-2xl p-5 sm:p-8 flex flex-col gap-4 sm:gap-5 hover:border-blue-bright/30 hover:shadow-[0_8px_30px_rgba(10,25,49,0.08)] transition-all duration-300 group">
                 <div className="w-16 h-16 rounded-full bg-[#F0F6FF] border border-[#CCE0FF] flex items-center justify-center text-blue-bright">
                   {ind.icon}
                 </div>

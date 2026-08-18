@@ -16,22 +16,22 @@ export default async function AboutPage() {
   const contentMap = Object.fromEntries(contentItems.map(item => [item.key, item.value]))
   return (
     <div className="w-full bg-white">
-      <section className="py-16 md:py-20 bg-white border-b border-border">
+      <section className="py-10 md:py-20 bg-white border-b border-border">
         <div className="page-container max-w-3xl">
           <span className="text-xs font-black tracking-widest text-blue-bright uppercase block mb-4">ABOUT US</span>
-          <h1 className="text-4xl md:text-[52px] font-black tracking-tight text-navy leading-tight mb-6">
+          <h1 className="text-[28px] sm:text-4xl md:text-[52px] font-black tracking-tight text-navy leading-tight mb-4 md:mb-6">
             {contentMap['about_headline'] || 'We grow businesses. Not just their metrics.'}
           </h1>
-          <p className="text-base md:text-lg text-[#475569] leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg text-[#475569] leading-relaxed">
             {contentMap['about_subheadline'] || 'Karvao India is a digital growth partner for local and regional businesses across India. We combine strategy, technology and execution to build sustainable growth systems — not one-off campaigns.'}
           </p>
         </div>
       </section>
 
-      <section className="py-12 md:py-16">
-        <div className="page-container grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-          <div className="flex flex-col gap-6">
-            <h2 className="text-2xl md:text-3xl font-black text-navy">Our mission</h2>
+      <section className="py-8 md:py-16">
+        <div className="page-container grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
+          <div className="flex flex-col gap-5 md:gap-6">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-navy">Our mission</h2>
             <p className="text-[#475569] leading-relaxed">
               Most businesses in India are underserved by digital agencies that either overcharge for basics or deliver vanity metrics without real business impact. We exist to change that — by building complete growth systems that actually move revenue.
             </p>

@@ -31,22 +31,22 @@ export const ClientReviewsSection: React.FC = async () => {
   ])
   const contentMap = Object.fromEntries(contentItems.map(item => [item.key, item.value]))
   return (
-    <section className="py-20 md:py-24 bg-blue-surface/50 border-t border-[#CCE0FF]/30">
+    <section className="py-14 md:py-24 bg-blue-surface/50 border-t border-[#CCE0FF]/30">
       <div className="page-container">
-        <div className="text-center mb-14">
-          <span className="text-xs font-black tracking-widest text-blue-bright uppercase block mb-4">
+        <div className="text-center mb-8 md:mb-14">
+          <span className="text-xs font-black tracking-widest text-blue-bright uppercase block mb-3 md:mb-4">
             CLIENT REVIEWS
           </span>
-          <h2 className="text-3xl md:text-[40px] font-extrabold tracking-tight text-navy leading-tight">
+          <h2 className="text-[24px] sm:text-3xl md:text-[40px] font-extrabold tracking-tight text-navy leading-tight">
             {contentMap['reviews_headline'] || 'What our clients say.'}
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
           {testimonials.map((t) => (
             <div
               key={t.id}
-              className="bg-white border border-border rounded-2xl p-8 flex flex-col justify-between shadow-[0_1px_4px_rgba(10,25,49,0.04)] hover:shadow-[0_8px_32px_rgba(10,25,49,0.08)] hover:-translate-y-0.5 transition-all duration-300"
+              className="bg-white border border-border rounded-2xl p-5 sm:p-8 flex flex-col justify-between shadow-[0_1px_4px_rgba(10,25,49,0.04)] hover:shadow-[0_8px_32px_rgba(10,25,49,0.08)] hover:-translate-y-0.5 transition-all duration-300"
             >
               <div>
                 <StarRating rating={t.rating} />

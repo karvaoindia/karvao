@@ -3,11 +3,11 @@ import { prisma } from '@/lib/prisma'
 
 const StarRating: React.FC<{ rating: number }> = ({ rating }) => {
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-0.5">
       {Array.from({ length: 5 }).map((_, i) => (
         <svg
           key={i}
-          className={`w-4 h-4 ${i < rating ? 'text-[#F59E0B]' : 'text-[#E2E8F0]'}`}
+          className={`w-[14px] h-[14px] ${i < rating ? 'text-[#F59E0B]' : 'text-[#E2E8F0]'}`}
           fill="currentColor"
           viewBox="0 0 20 20"
         >
@@ -31,37 +31,36 @@ export const ClientReviewsSection: React.FC = async () => {
   ])
   const contentMap = Object.fromEntries(contentItems.map(item => [item.key, item.value]))
   return (
-    <section className="py-16 md:py-20 bg-blue-surface border-t border-[#CCE0FF]/40">
+    <section className="py-20 md:py-24 bg-blue-surface/50 border-t border-[#CCE0FF]/30">
       <div className="page-container">
-        <div className="text-center mb-12">
-          <span className="text-xs font-black tracking-widest text-blue-bright uppercase block mb-3">
+        <div className="text-center mb-14">
+          <span className="text-xs font-black tracking-widest text-blue-bright uppercase block mb-4">
             CLIENT REVIEWS
           </span>
-          <h2 className="text-3xl md:text-[38px] font-extrabold tracking-tight text-navy">
+          <h2 className="text-3xl md:text-[40px] font-extrabold tracking-tight text-navy leading-tight">
             {contentMap['reviews_headline'] || 'What our clients say.'}
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {testimonials.map((t) => (
             <div
               key={t.id}
-              className="bg-white border border-border rounded-xl p-7 flex flex-col justify-between shadow-[0_1px_3px_rgba(10,25,49,0.04)] hover:shadow-[0_8px_30px_rgba(10,25,49,0.08)] transition-all duration-300"
+              className="bg-white border border-border rounded-2xl p-8 flex flex-col justify-between shadow-[0_1px_4px_rgba(10,25,49,0.04)] hover:shadow-[0_8px_32px_rgba(10,25,49,0.08)] hover:-translate-y-0.5 transition-all duration-300"
             >
               <div>
                 <StarRating rating={t.rating} />
-                <p className="text-sm text-[#475569] leading-relaxed mt-4 mb-6">
+                <p className="text-[14px] text-[#475569] leading-relaxed mt-5 mb-7 italic">
                   &ldquo;{t.review}&rdquo;
                 </p>
               </div>
-              <div className="flex items-center gap-3 pt-4 border-t border-border">
-                {/* Avatar placeholder */}
-                <div className="w-10 h-10 rounded-full bg-blue-surface border border-[#CCE0FF] flex items-center justify-center text-blue-bright text-sm font-bold">
+              <div className="flex items-center gap-3.5 pt-5 border-t border-border/60">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-bright to-blue-medium flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
                   {t.name.charAt(0)}
                 </div>
                 <div>
                   <span className="text-sm font-bold text-navy block">{t.name}</span>
-                  <span className="text-xs text-grey">{t.role}, {t.company}</span>
+                  <span className="text-[12px] text-grey">{t.role}, {t.company}</span>
                 </div>
               </div>
             </div>

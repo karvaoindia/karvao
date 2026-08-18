@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 
 const capabilities = [
@@ -45,18 +47,23 @@ const capabilities = [
 
 export const GrowthCapabilityBar: React.FC = () => {
   return (
-    <section className="py-10 md:py-12 bg-blue-surface border-y border-[#CCE0FF]/40">
+    <section className="py-14 md:py-16 bg-blue-surface/60 border-y border-[#CCE0FF]/30">
       <div className="page-container">
-        <p className="text-center text-sm font-semibold text-[#475569] mb-8">
+        <p className="text-center text-[13px] font-semibold text-[#475569] mb-10 tracking-wide">
           Helping businesses improve
         </p>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6 divide-y md:divide-y-0 md:divide-x divide-[#CCE0FF]/60 text-center">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-4 text-center">
           {capabilities.map((cap) => (
-            <div key={cap.label} className="flex flex-col items-center gap-3 pt-6 md:pt-0">
-              <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center shadow-[0_1px_3px_rgba(10,25,49,0.06)] text-blue-bright border border-[#CCE0FF]/60">
+            <div
+              key={cap.label}
+              className="group flex flex-col items-center gap-4 cursor-default"
+            >
+              <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center shadow-[0_1px_4px_rgba(10,25,49,0.04)] text-blue-bright border border-[#CCE0FF]/40 group-hover:shadow-[0_4px_16px_rgba(0,102,255,0.1)] group-hover:border-blue-bright/30 group-hover:-translate-y-1 transition-all duration-300">
                 {cap.icon}
               </div>
-              <span className="text-sm font-bold text-navy">{cap.label}</span>
+              <span className="text-[13px] font-bold text-navy group-hover:text-blue-bright transition-colors duration-300">
+                {cap.label}
+              </span>
             </div>
           ))}
         </div>

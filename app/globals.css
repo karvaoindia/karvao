@@ -107,6 +107,49 @@ html, body {
   top: 0;
 }
 
+/* Homepage animation utilities */
+.hm-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.hm-reveal.hm-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.hm-reveal-delay-1 { transition-delay: 0.1s; }
+.hm-reveal-delay-2 { transition-delay: 0.2s; }
+.hm-reveal-delay-3 { transition-delay: 0.3s; }
+.hm-reveal-delay-4 { transition-delay: 0.4s; }
+.hm-reveal-delay-5 { transition-delay: 0.5s; }
+
+@keyframes hm-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes hm-pulse-ring {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 102, 255, 0.15); }
+  50% { box-shadow: 0 0 0 12px rgba(0, 102, 255, 0); }
+}
+
+@keyframes hm-dash-flow {
+  to { stroke-dashoffset: -20; }
+}
+
+@keyframes hm-count-up {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes hm-bar-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.hm-float { animation: hm-float 4s ease-in-out infinite; }
+.hm-pulse-ring { animation: hm-pulse-ring 2.5s ease-in-out infinite; }
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-delay: -1ms !important;
@@ -116,5 +159,9 @@ html, body {
     scroll-behavior: auto !important;
     transition-duration: 0s !important;
     transition-delay: 0s !important;
+  }
+  .hm-reveal {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

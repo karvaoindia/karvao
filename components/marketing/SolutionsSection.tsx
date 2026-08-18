@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import { Card } from '../ui/Card'
 
 interface SolutionItem {
   id: string
@@ -65,46 +64,44 @@ export const SolutionsSection: React.FC = () => {
   ]
 
   return (
-    <section className="py-16 md:py-20 bg-white border-t border-border" id="solutions">
+    <section className="py-20 md:py-24 bg-white border-t border-border" id="solutions">
       <div className="page-container">
-        <div className="text-center mb-14">
-          <span className="text-xs font-black tracking-widest text-blue-bright uppercase block mb-3">
+        <div className="text-center mb-16">
+          <span className="text-xs font-black tracking-widest text-blue-bright uppercase block mb-4">
             SOLUTIONS
           </span>
-          <h2 className="text-3xl md:text-[38px] font-extrabold tracking-tight text-navy">
+          <h2 className="text-3xl md:text-[40px] font-extrabold tracking-tight text-navy leading-tight">
             Everything your business needs to move forward.
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
           {solutions.map((item) => (
-            <Card
+            <a
               key={item.id}
-              className="relative border border-border bg-white p-7 flex flex-col justify-between transition-all duration-300 group overflow-hidden hover:border-blue-bright/30 hover:shadow-[0_8px_30px_rgba(0,102,255,0.08)]"
+              href={`/solutions#${item.id}`}
+              className="group relative bg-white border border-border rounded-2xl p-7 flex flex-col justify-between transition-all duration-300 overflow-hidden hover:-translate-y-1 hover:border-blue-bright/25 hover:shadow-[0_8px_32px_rgba(0,102,255,0.08)]"
             >
               <div>
-                <div className="w-12 h-12 rounded-full bg-[#F0F6FF] text-blue-bright flex items-center justify-center border border-[#CCE0FF] mb-6">
+                <div className="w-12 h-12 rounded-xl bg-[#F0F6FF] text-blue-bright flex items-center justify-center border border-[#CCE0FF]/60 mb-7 group-hover:bg-blue-bright group-hover:text-white group-hover:border-blue-bright transition-all duration-300">
                   {item.icon}
                 </div>
-                <h3 className="text-xl font-extrabold text-navy mb-4">
+                <h3 className="text-lg font-extrabold text-navy mb-4">
                   {item.label}
                 </h3>
-                <ul className="flex flex-col gap-3 mb-6">
+                <ul className="flex flex-col gap-2.5 mb-6">
                   {item.bullets.map((bullet, idx) => (
-                    <li key={idx} className="text-xs text-[#475569] font-medium leading-normal">
+                    <li key={idx} className="text-[13px] text-[#475569] font-medium leading-normal">
                       {bullet}
                     </li>
                   ))}
                 </ul>
               </div>
-              <a
-                href={`/solutions#${item.id}`}
-                className="inline-flex items-center gap-1.5 text-xs font-black text-navy hover:text-blue-bright transition-colors mt-auto group/link"
-              >
+              <span className="inline-flex items-center gap-1.5 text-xs font-black text-navy group-hover:text-blue-bright transition-colors">
                 <span>Explore</span>
-                <span className="inline-block transition-transform group-hover/link:translate-x-1">&rarr;</span>
-              </a>
-            </Card>
+                <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+              </span>
+            </a>
           ))}
         </div>
       </div>

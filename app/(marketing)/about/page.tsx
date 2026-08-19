@@ -4,8 +4,12 @@ import { Button } from '@/components/ui/Button'
 import { prisma } from '@/lib/prisma'
 
 export const metadata: Metadata = {
-  title: 'About Us',
-  description: 'Karvao India is a digital growth partner for businesses — helping them build, attract, convert, automate and measure growth.',
+  title: 'About Us | Digital Growth Partner | KARVAO India',
+  description:
+    'Karvao India is a digital growth partner for local and regional businesses across India. We combine strategy, technology and execution to build sustainable growth systems.',
+  alternates: {
+    canonical: '/about',
+  },
 }
 
 export default async function AboutPage() {

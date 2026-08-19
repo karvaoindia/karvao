@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Button } from '../ui/Button'
+import { BrandLogo } from '@/components/ui/BrandLogo'
 
 export const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -18,75 +18,89 @@ export const Header: React.FC = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'bg-white/90 backdrop-blur-xl border-b border-border/60 py-2.5 shadow-[0_1px_12px_rgba(10,25,49,0.06)]'
-          : 'bg-white/60 backdrop-blur-md border-b border-transparent py-3.5'
+          ? 'bg-[#FAFAF8]/80 backdrop-blur-xl border-b border-[#0A0A0A]/5 py-3 shadow-[0_4px_20px_rgba(0,0,0,0.03)]'
+          : 'bg-transparent border-b border-transparent py-3 sm:py-3.5'
       }`}
     >
-      <div className="page-container flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex flex-col items-start focus-visible:ring-2 focus-visible:ring-blue-bright rounded" aria-label="Karvao India Homepage">
-          <span className="text-xl font-black text-navy tracking-tight leading-none">
-            KARVAO
-          </span>
-          <span className="text-[7px] font-bold text-grey uppercase tracking-[0.28em] leading-none mt-0.5">
-            INDIA
-          </span>
-        </Link>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 flex items-center justify-between">
+        {/* Left: KARVAO Brand */}
+        <BrandLogo />
 
-        {/* Desktop Nav Links */}
-        <nav className="hidden lg:flex items-center gap-1" aria-label="Main Navigation">
-          <Link href="/solutions" className="text-[13px] font-semibold text-[#475569] hover:text-navy transition-colors inline-flex items-center gap-1 px-3 py-2 rounded-lg hover:bg-blue-surface/60 group">
-            <span>Solutions</span>
-            <svg className="w-3 h-3 text-grey group-hover:text-navy transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
-            </svg>
+        {/* Center/Right: Services, Solutions, Work, About, Careers */}
+        <nav
+          className="hidden md:flex items-center gap-1 lg:gap-2"
+          aria-label="Main Navigation"
+        >
+          <Link
+            href="/services"
+            className="text-xs sm:text-sm font-semibold text-[#475569] hover:text-[#0A0A0A] transition-colors px-3.5 py-2 rounded-full hover:bg-[#0A0A0A]/[0.04]"
+          >
+            Services
           </Link>
-          <Link href="/industries" className="text-[13px] font-semibold text-[#475569] hover:text-navy transition-colors inline-flex items-center gap-1 px-3 py-2 rounded-lg hover:bg-blue-surface/60 group">
-            <span>Industries</span>
-            <svg className="w-3 h-3 text-grey group-hover:text-navy transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
-            </svg>
+          <Link
+            href="/solutions"
+            className="text-xs sm:text-sm font-semibold text-[#475569] hover:text-[#0A0A0A] transition-colors px-3.5 py-2 rounded-full hover:bg-[#0A0A0A]/[0.04]"
+          >
+            Solutions
           </Link>
-          <Link href="/how-we-work" className="text-[13px] font-semibold text-[#475569] hover:text-navy transition-colors px-3 py-2 rounded-lg hover:bg-blue-surface/60">
-            How We Work
+          <Link
+            href="/work"
+            className="text-xs sm:text-sm font-semibold text-[#475569] hover:text-[#0A0A0A] transition-colors px-3.5 py-2 rounded-full hover:bg-[#0A0A0A]/[0.04]"
+          >
+            Work
           </Link>
-          <Link href="/about" className="text-[13px] font-semibold text-[#475569] hover:text-navy transition-colors px-3 py-2 rounded-lg hover:bg-blue-surface/60">
-            About Us
+          <Link
+            href="/about"
+            className="text-xs sm:text-sm font-semibold text-[#475569] hover:text-[#0A0A0A] transition-colors px-3.5 py-2 rounded-full hover:bg-[#0A0A0A]/[0.04]"
+          >
+            About
           </Link>
-          <Link href="/insights" className="text-[13px] font-semibold text-[#475569] hover:text-navy transition-colors px-3 py-2 rounded-lg hover:bg-blue-surface/60">
-            Insights
+          <Link
+            href="/careers"
+            className="text-xs sm:text-sm font-semibold text-[#475569] hover:text-[#0A0A0A] transition-colors px-3.5 py-2 rounded-full hover:bg-[#0A0A0A]/[0.04]"
+          >
+            Careers
           </Link>
         </nav>
 
-        {/* Desktop CTAs */}
-        <div className="hidden lg:flex items-center gap-2.5">
-          <Link href="/business-score" tabIndex={-1}>
-            <Button variant="outline" size="sm" className="text-[12px]">
-              Business Score
-            </Button>
-          </Link>
-          <Link href="/quotation" tabIndex={-1}>
-            <Button variant="primary" size="sm" className="text-[12px]">
-              Get Quotation
-            </Button>
+        {/* Right CTA: Get a Quotation → */}
+        <div className="hidden md:flex items-center gap-3">
+          <Link
+            href="/quotation"
+            className="group inline-flex items-center justify-center gap-2 bg-[#0A0A0A] hover:bg-[#1A1A1A] text-white text-xs sm:text-sm font-semibold h-10 px-5 rounded-full shadow-[0_2px_10px_rgba(10,10,10,0.1)] hover:shadow-[0_4px_16px_rgba(10,10,10,0.2)] transition-all duration-300 active:scale-[0.98]"
+          >
+            <span>Get a Quotation</span>
+            <span className="transition-transform duration-300 group-hover:translate-x-0.5">
+              &rarr;
+            </span>
           </Link>
         </div>
 
-        {/* Mobile Burger Menu Button */}
+        {/* Mobile Menu Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden p-2 -mr-1 text-navy focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-bright rounded-lg hover:bg-blue-surface/60 transition-colors"
+          className="md:hidden p-2 -mr-1 text-[#0A0A0A] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#5367E8] rounded-xl hover:bg-[#0A0A0A]/[0.04] transition-colors"
           aria-expanded={isOpen}
           aria-controls="mobile-menu"
           aria-label={isOpen ? 'Close menu' : 'Open menu'}
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {isOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
             ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
             )}
           </svg>
         </button>
@@ -96,35 +110,54 @@ export const Header: React.FC = () => {
       {isOpen && (
         <div
           id="mobile-menu"
-          className="lg:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-xl border-b border-border shadow-[0_8px_30px_rgba(10,25,49,0.1)] px-6 py-6 flex flex-col gap-5"
+          className="md:hidden absolute top-full left-0 right-0 bg-[#FAFAF8]/95 backdrop-blur-xl border-b border-[#0A0A0A]/10 shadow-[0_12px_30px_rgba(0,0,0,0.08)] px-6 py-6 flex flex-col gap-4 animate-in fade-in slide-in-from-top-2 duration-300"
         >
           <nav className="flex flex-col gap-1" aria-label="Mobile Navigation">
-            <Link href="/solutions" onClick={() => setIsOpen(false)} className="text-[15px] font-semibold text-navy hover:text-blue-bright hover:bg-blue-surface/60 py-2.5 px-3 rounded-lg transition-colors">
+            <Link
+              href="/services"
+              onClick={() => setIsOpen(false)}
+              className="text-base font-semibold text-[#0A0A0A] hover:text-[#5367E8] py-2.5 px-3 rounded-lg hover:bg-[#0A0A0A]/[0.04] transition-colors"
+            >
+              Services
+            </Link>
+            <Link
+              href="/solutions"
+              onClick={() => setIsOpen(false)}
+              className="text-base font-semibold text-[#0A0A0A] hover:text-[#5367E8] py-2.5 px-3 rounded-lg hover:bg-[#0A0A0A]/[0.04] transition-colors"
+            >
               Solutions
             </Link>
-            <Link href="/industries" onClick={() => setIsOpen(false)} className="text-[15px] font-semibold text-navy hover:text-blue-bright hover:bg-blue-surface/60 py-2.5 px-3 rounded-lg transition-colors">
-              Industries
+            <Link
+              href="/work"
+              onClick={() => setIsOpen(false)}
+              className="text-base font-semibold text-[#0A0A0A] hover:text-[#5367E8] py-2.5 px-3 rounded-lg hover:bg-[#0A0A0A]/[0.04] transition-colors"
+            >
+              Work
             </Link>
-            <Link href="/how-we-work" onClick={() => setIsOpen(false)} className="text-[15px] font-semibold text-navy hover:text-blue-bright hover:bg-blue-surface/60 py-2.5 px-3 rounded-lg transition-colors">
-              How We Work
+            <Link
+              href="/about"
+              onClick={() => setIsOpen(false)}
+              className="text-base font-semibold text-[#0A0A0A] hover:text-[#5367E8] py-2.5 px-3 rounded-lg hover:bg-[#0A0A0A]/[0.04] transition-colors"
+            >
+              About
             </Link>
-            <Link href="/about" onClick={() => setIsOpen(false)} className="text-[15px] font-semibold text-navy hover:text-blue-bright hover:bg-blue-surface/60 py-2.5 px-3 rounded-lg transition-colors">
-              About Us
-            </Link>
-            <Link href="/insights" onClick={() => setIsOpen(false)} className="text-[15px] font-semibold text-navy hover:text-blue-bright hover:bg-blue-surface/60 py-2.5 px-3 rounded-lg transition-colors">
-              Insights
+            <Link
+              href="/careers"
+              onClick={() => setIsOpen(false)}
+              className="text-base font-semibold text-[#0A0A0A] hover:text-[#5367E8] py-2.5 px-3 rounded-lg hover:bg-[#0A0A0A]/[0.04] transition-colors"
+            >
+              Careers
             </Link>
           </nav>
-          <div className="flex flex-col gap-2.5 pt-4 border-t border-border">
-            <Link href="/business-score" onClick={() => setIsOpen(false)} tabIndex={-1}>
-              <Button variant="outline" className="w-full">
-                Business Score
-              </Button>
-            </Link>
-            <Link href="/quotation" onClick={() => setIsOpen(false)} tabIndex={-1}>
-              <Button variant="primary" className="w-full">
-                Get Quotation
-              </Button>
+
+          <div className="pt-3 border-t border-[#0A0A0A]/10">
+            <Link
+              href="/quotation"
+              onClick={() => setIsOpen(false)}
+              className="w-full flex items-center justify-center gap-2 bg-[#0A0A0A] text-white font-semibold py-3 px-6 rounded-full shadow-sm text-sm"
+            >
+              <span>Get a Quotation</span>
+              <span>&rarr;</span>
             </Link>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import { BrandLogo } from '@/components/ui/BrandLogo'
 
 export const Footer: React.FC = () => {
   return (
@@ -7,14 +8,7 @@ export const Footer: React.FC = () => {
       <div className="page-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-14 lg:gap-10">
         {/* Branding & Socials */}
         <div className="flex flex-col gap-7 lg:col-span-1">
-          <Link href="/" className="flex flex-col items-start self-start" aria-label="Karvao India Homepage">
-            <span className="text-2xl font-black text-white tracking-tight leading-none">
-              KARVAO
-            </span>
-            <span className="text-[8px] font-bold text-blue-light uppercase tracking-[0.28em] leading-none mt-0.5">
-              INDIA
-            </span>
-          </Link>
+          <BrandLogo light />
           <p className="text-sm text-[#94A3B8] max-w-sm leading-relaxed">
             Digital growth partner for businesses. We build, attract, convert, automate and measure growth — all under one system.
           </p>
@@ -49,24 +43,24 @@ export const Footer: React.FC = () => {
           </span>
           <nav className="flex flex-col gap-1 text-sm text-[#94A3B8]">
             <Link href="/about" className="hover:text-white py-1.5 transition-colors">About Us</Link>
-            <Link href="/how-we-work" className="hover:text-white py-1.5 transition-colors">How We Work</Link>
-            <Link href="/insights" className="hover:text-white py-1.5 transition-colors">Insights</Link>
+            <Link href="/work" className="hover:text-white py-1.5 transition-colors">Work Showcase</Link>
+            <Link href="/services" className="hover:text-white py-1.5 transition-colors">All Services</Link>
             <Link href="/careers" className="hover:text-white py-1.5 transition-colors">Careers</Link>
             <Link href="/contact" className="hover:text-white py-1.5 transition-colors">Contact Us</Link>
           </nav>
         </div>
 
-        {/* Solutions Column */}
+        {/* Solutions & Services Column */}
         <div className="flex flex-col gap-4">
           <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#64748B]">
-            Solutions
+            Services
           </span>
           <nav className="flex flex-col gap-1 text-sm text-[#94A3B8]">
-            <Link href="/solutions#build" className="hover:text-white py-1.5 transition-colors">Build</Link>
-            <Link href="/solutions#grow" className="hover:text-white py-1.5 transition-colors">Grow</Link>
-            <Link href="/solutions#convert" className="hover:text-white py-1.5 transition-colors">Convert</Link>
-            <Link href="/solutions#automate" className="hover:text-white py-1.5 transition-colors">Automate</Link>
-            <Link href="/solutions#measure" className="hover:text-white py-1.5 transition-colors">Measure</Link>
+            <Link href="/services#build" className="hover:text-white py-1.5 transition-colors">Build</Link>
+            <Link href="/services#grow" className="hover:text-white py-1.5 transition-colors">Grow</Link>
+            <Link href="/services#convert" className="hover:text-white py-1.5 transition-colors">Convert</Link>
+            <Link href="/services#automate" className="hover:text-white py-1.5 transition-colors">Automate</Link>
+            <Link href="/services#measure" className="hover:text-white py-1.5 transition-colors">Measure</Link>
           </nav>
         </div>
 

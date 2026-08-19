@@ -158,3 +158,29 @@ model Media {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model JobListing {
+  id           String   @id @default(uuid())
+  title        String
+  department   String
+  location     String   @default("Remote / Hybrid")
+  type         String   @default("Full-Time")
+  description  String   @db.Text
+  requirements String?  @db.Text
+  published    Boolean  @default(true)
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Service {
+  id          String   @id @default(uuid())
+  title       String
+  category    String   // BUILD, GROW, CONVERT, AUTOMATE, MEASURE
+  description String   @db.Text
+  icon        String?
+  published   Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

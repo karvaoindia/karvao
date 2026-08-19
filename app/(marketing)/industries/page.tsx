@@ -3,8 +3,11 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
 
 export const metadata: Metadata = {
-  title: 'Industries We Serve',
-  description: 'Karvao India works with auto dealers, clinics, restaurants, real estate, retail, education and more.',
+  title: 'Industries We Serve | KARVAO India',
+  description: 'Karvao India builds custom growth engines for auto dealers, clinics, restaurants, real estate, retail & D2C, education, and fast-moving regional businesses.',
+  alternates: {
+    canonical: '/industries',
+  },
 }
 
 const industries = [

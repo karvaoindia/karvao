@@ -3,8 +3,11 @@ import { Metadata } from 'next'
 import { QuotationForm } from '@/components/product/QuotationForm'
 
 export const metadata: Metadata = {
-  title: 'Get a Project Quotation',
+  title: 'Get a Project Quotation | KARVAO India',
   description: 'Tell us about your business goals, target timelines, and required digital services. Get a custom quotation tailored for your growth needs.',
+  alternates: {
+    canonical: '/quotation',
+  },
 }
 
 export default function QuotationPage() {

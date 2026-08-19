@@ -3,8 +3,11 @@ import { Metadata } from 'next'
 import { AssessmentForm } from '@/components/product/AssessmentForm'
 
 export const metadata: Metadata = {
-  title: 'Check Your Business Growth Score',
+  title: 'Check Your Business Growth Score | KARVAO India',
   description: 'Evaluate your business operations, digital presence, customer acquisition, conversion, automation and measurement. Get an instant score and custom recommendations report.',
+  alternates: {
+    canonical: '/business-score',
+  },
 }
 
 export default function BusinessScorePage() {

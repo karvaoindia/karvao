@@ -117,29 +117,33 @@ export const QuotationForm: React.FC = () => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto w-full py-8 md:py-12 px-6">
-      <div className="mb-8">
-        <span className="text-xs font-black tracking-widest text-blue-bright uppercase block mb-2">Step {step} of 3</span>
-        <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-navy">
+    <div className="max-w-2xl mx-auto w-full py-6 md:py-10 px-4 sm:px-6">
+      <div className="mb-6 text-center sm:text-left">
+        <div className="flex items-center justify-center sm:justify-start gap-2 mb-2">
+          <span className="text-[11px] font-black tracking-[0.2em] text-[#1264FF] uppercase bg-[#1264FF]/10 px-2.5 py-0.5 rounded-full border border-[#1264FF]/15">
+            Step {step} of 3
+          </span>
+        </div>
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-[#0B1220]">
           {step === 1 && "Let's start with your business profile"}
           {step === 2 && 'What capabilities do you need?'}
           {step === 3 && 'Share your goals & budget'}
         </h1>
-        <p className="text-sm text-grey mt-1.5">
+        <p className="text-xs sm:text-sm text-[#475569] font-medium mt-1">
           {step === 1 && 'Tell us a bit about who you are so we can coordinate.'}
           {step === 2 && 'Select all services that align with your growth objectives.'}
           {step === 3 && 'Help us understand the timeline and scope of your request.'}
         </p>
-        <ProgressBar currentStep={step} totalSteps={3} className="mt-6" />
+        <ProgressBar currentStep={step} totalSteps={3} className="mt-4" />
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         {submissionError && (
-          <div className="p-4 bg-red/10 border border-red/20 rounded-lg text-sm font-semibold text-red" role="alert">{submissionError}</div>
+          <div className="p-3.5 bg-red-50 border border-red-200 rounded-xl text-xs font-semibold text-red-700" role="alert">{submissionError}</div>
         )}
 
         {step === 1 && (
-          <Card className="p-6 md:p-8 space-y-5 bg-white border border-border">
+          <Card className="p-5 sm:p-6 space-y-4 bg-white/90 backdrop-blur-md border border-[#1264FF]/15 shadow-sm rounded-[20px]">
             <Input label="Full Name" placeholder="e.g. Rahul Sharma" error={errors.name?.message} {...register('name')} />
             <Input label="Work Email" type="email" placeholder="e.g. rahul@company.com" error={errors.email?.message} {...register('email')} />
             <Input label="Phone Number (Optional)" type="tel" placeholder="e.g. +91 98765 43210" error={errors.phone?.message} {...register('phone')} />
@@ -148,32 +152,32 @@ export const QuotationForm: React.FC = () => {
         )}
 
         {step === 2 && (
-          <Card className="p-6 md:p-8 space-y-6 bg-white border border-border">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <Card className="p-5 sm:p-6 space-y-4 bg-white/90 backdrop-blur-md border border-[#1264FF]/15 shadow-sm rounded-[20px]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {SERVICES_OPTIONS.map((service) => (
                 <Checkbox key={service.id} label={service.label} description={service.desc} checked={selectedServices.includes(service.id)} onChange={(e) => handleServiceChange(service.id, e.target.checked)} />
               ))}
             </div>
-            {errors.services?.message && <p className="text-xs text-red font-semibold mt-2" role="alert">{errors.services.message}</p>}
+            {errors.services?.message && <p className="text-xs text-red-600 font-semibold mt-1" role="alert">{errors.services.message}</p>}
           </Card>
         )}
 
         {step === 3 && (
-          <Card className="p-6 md:p-8 space-y-5 bg-white border border-border">
+          <Card className="p-5 sm:p-6 space-y-4 bg-white/90 backdrop-blur-md border border-[#1264FF]/15 shadow-sm rounded-[20px]">
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="goals" className="text-sm font-semibold text-navy">What are your business goals for this project?</label>
-              <textarea id="goals" placeholder="e.g. We want to relaunch our B2B website and connect a WhatsApp chat flow..." rows={4}
-                className={`w-full px-4 py-2.5 bg-white border rounded-lg text-sm transition-all duration-200 focus:outline-none focus:border-blue-bright focus:ring-2 focus:ring-[#E6F0FF] ${errors.goals ? 'border-red' : 'border-border'}`}
+              <label htmlFor="goals" className="text-xs font-bold text-[#0B1220] uppercase tracking-wider">What are your business goals for this project?</label>
+              <textarea id="goals" placeholder="e.g. We want to relaunch our B2B website and connect a WhatsApp chat flow..." rows={3}
+                className={`w-full px-3.5 py-2.5 bg-white border rounded-xl text-sm transition-all duration-200 focus:outline-none focus:border-[#1264FF] focus:ring-2 focus:ring-[#1264FF]/20 ${errors.goals ? 'border-red-500' : 'border-[#CBD5E1]'}`}
                 {...register('goals')}
               />
-              {errors.goals?.message && <span className="text-xs text-red font-medium" role="alert">{errors.goals.message}</span>}
+              {errors.goals?.message && <span className="text-xs text-red-600 font-medium" role="alert">{errors.goals.message}</span>}
             </div>
             <Select label="Expected Project Timeline" options={TIMELINE_OPTIONS} error={errors.timeline?.message} {...register('timeline')} />
             <EstimatedBudgetSelect error={errors.budget?.message} {...register('budget')} />
           </Card>
         )}
 
-        <div className="flex items-center justify-between pt-4 border-t border-border">
+        <div className="flex items-center justify-between pt-3">
           {step > 1 ? <Button type="button" variant="outline" onClick={prevStep}>Back</Button> : <div />}
           {step < 3 ? <Button type="button" variant="primary" onClick={nextStep}>Continue</Button> : <Button type="submit" variant="primary" isLoading={isSubmitting}>Submit Request</Button>}
         </div>

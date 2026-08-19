@@ -11,6 +11,21 @@ import { ClientReviewsSection } from '@/components/marketing/ClientReviewsSectio
 import { RevealOnScroll, AnimateBar } from '@/components/marketing/HomeAnimations'
 import { prisma } from '@/lib/prisma'
 
+import { HeroSection } from '@/components/marketing/HeroSection'
+
+import { ChallengeVisualCard } from '@/components/marketing/ChallengeVisualCard'
+import { IndustriesSection } from '@/components/marketing/IndustriesSection'
+
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Karvao India | Digital Growth Partner for Indian Businesses',
+  description: 'We build digital growth systems for Indian businesses — connecting websites, performance ads, CRM, WhatsApp automation, and analytics into one engine.',
+  alternates: {
+    canonical: '/',
+  },
+}
+
 async function getContent(key: string, fallback: string, contentMap: Record<string, string>): Promise<string> {
   return contentMap[key] || fallback
 }
@@ -21,68 +36,10 @@ export default async function HomePage() {
   })
   const contentMap = Object.fromEntries(contentItems.map(item => [item.key, item.value]))
   return (
-    <div className="w-full bg-white">
+    <div className="w-full bg-[#FAFAF8]">
       {/* 1. HERO */}
-      <section className="relative pt-4 pb-10 sm:pt-6 sm:pb-16 md:pt-10 md:pb-24 overflow-hidden bg-white">
-        <div className="page-container grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
-          {/* Hero Left Content */}
-          <div className="w-full flex flex-col items-start gap-5 md:gap-6">
-            <RevealOnScroll>
-              <span className="text-[11px] font-black tracking-[0.2em] text-blue-bright uppercase block">
-                DIGITAL GROWTH PARTNER FOR BUSINESSES
-              </span>
-            </RevealOnScroll>
-            <RevealOnScroll delay={0.1}>
-              <h1 className="text-[36px] sm:text-[44px] md:text-[72px] lg:text-[80px] font-black tracking-tight text-navy leading-[1.05] md:leading-[1.02]">
-                Build better.<br />
-                Grow smarter.<br />
-                Scale with<br />
-                <span className="text-blue-bright">systems.</span>
-              </h1>
-            </RevealOnScroll>
-            <RevealOnScroll delay={0.2}>
-              <p className="text-[15px] md:text-[17px] text-[#475569] max-w-md leading-relaxed">
-                {await getContent('hero_subheadline', 'We help businesses build their digital presence, generate demand, improve conversions, automate operations and measure what drives growth.', contentMap)}
-              </p>
-            </RevealOnScroll>
-            <RevealOnScroll delay={0.3}>
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto mt-2">
-                <Link href="/quotation" className="flex-1 sm:flex-none">
-                  <Button variant="primary" size="lg" className="w-full gap-2 font-bold">
-                    <span>Get a Quotation</span>
-                    <span className="text-sm">&rarr;</span>
-                  </Button>
-                </Link>
-                <Link href="/business-score" className="flex-1 sm:flex-none">
-                  <Button variant="outline" size="lg" className="w-full gap-2 font-bold">
-                    <span>Check Your Business Score</span>
-                    <span className="text-sm">&rarr;</span>
-                  </Button>
-                </Link>
-              </div>
-            </RevealOnScroll>
-            <RevealOnScroll delay={0.4}>
-              {/* Core Capability Labels */}
-              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] font-bold text-grey mt-4 select-none">
-                <span>Website</span>
-                <span className="w-1.5 h-1.5 bg-blue-bright/40 rounded-full"></span>
-                <span>Marketing</span>
-                <span className="w-1.5 h-1.5 bg-blue-bright/40 rounded-full"></span>
-                <span>CRM</span>
-                <span className="w-1.5 h-1.5 bg-blue-bright/40 rounded-full"></span>
-                <span>Automation</span>
-                <span className="w-1.5 h-1.5 bg-blue-bright/40 rounded-full"></span>
-                <span>Analytics</span>
-              </div>
-            </RevealOnScroll>
-          </div>
+      <HeroSection />
 
-          {/* Hero Right Visual Column */}
-          <div className="w-full flex items-center justify-center">
-            <GrowthSystemVisual />
-          </div>
-        </div>
-      </section>
 
       {/* 2. GROWTH CAPABILITY BAR */}
       <GrowthCapabilityBar />
@@ -114,83 +71,9 @@ export default async function HomePage() {
             </RevealOnScroll>
           </div>
 
-          {/* Right Visual (Tangled vs One Growth Engine) */}
+          {/* Right Visual (Interactive 15-Zone 3D Challenge Visual Card) */}
           <RevealOnScroll delay={0.2}>
-            <div className="relative w-full max-w-[520px] h-auto aspect-[520/340] flex items-center justify-between px-4 sm:px-8 bg-white border border-border/60 rounded-3xl py-6 sm:py-10 shadow-[0_2px_12px_rgba(10,25,49,0.04)]">
-              {/* Left side: Tangled network */}
-              <div className="relative w-[42%] aspect-square">
-                {/* Google */}
-                <div className="absolute top-[24px] left-[10px] w-9 h-9 rounded-full bg-white border border-border/60 flex items-center justify-center shadow-[0_2px_8px_rgba(10,25,49,0.06)] z-20">
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
-                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
-                  </svg>
-                </div>
-                {/* FB */}
-                <div className="absolute bottom-[24px] left-[10px] w-9 h-9 rounded-full bg-white border border-border/60 flex items-center justify-center shadow-[0_2px_8px_rgba(10,25,49,0.06)] z-20">
-                  <svg className="w-4 h-4 text-[#1877F2]" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                  </svg>
-                </div>
-                {/* Insta */}
-                <div className="absolute top-[2px] left-[78px] -translate-x-1/2 w-9 h-9 rounded-full bg-white border border-border/60 flex items-center justify-center shadow-[0_2px_8px_rgba(10,25,49,0.06)] z-20">
-                  <svg className="w-4 h-4 text-[#E4405F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                  </svg>
-                </div>
-                {/* WhatsApp */}
-                <div className="absolute top-1/2 -translate-y-1/2 right-[10px] w-9 h-9 rounded-full bg-white border border-border/60 flex items-center justify-center shadow-[0_2px_8px_rgba(10,25,49,0.06)] z-20">
-                  <svg className="w-4 h-4 text-[#25D366]" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.743 1.451 5.4 0 9.794-4.395 9.797-9.799.002-2.618-1.01-5.08-2.853-6.927C16.483 1.83 14.025.816 11.412.815 6.015.815 1.62 5.207 1.618 10.607c-.001 1.688.449 3.336 1.3 4.783L1.932 20.35l4.715-1.196z"/>
-                  </svg>
-                </div>
-                {/* Mail */}
-                <div className="absolute bottom-[6px] left-[110px] w-9 h-9 rounded-full bg-white border border-border/60 flex items-center justify-center shadow-[0_2px_8px_rgba(10,25,49,0.06)] z-20">
-                  <svg className="w-4 h-4 text-grey" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                  </svg>
-                </div>
-
-                <span className="absolute bottom-[20px] left-[78px] -translate-x-1/2 text-grey font-bold text-sm z-30">?</span>
-
-                <svg className="absolute inset-0 w-full h-full pointer-events-none z-10" viewBox="0 0 180 180">
-                  <line x1="26" y1="40" x2="90" y2="90" stroke="#E2E8F0" strokeWidth="1" />
-                  <line x1="26" y1="140" x2="90" y2="90" stroke="#E2E8F0" strokeWidth="1" />
-                  <line x1="78" y1="18" x2="90" y2="90" stroke="#E2E8F0" strokeWidth="1" />
-                  <line x1="154" y1="90" x2="90" y2="90" stroke="#E2E8F0" strokeWidth="1" />
-                  <line x1="126" y1="158" x2="90" y2="90" stroke="#E2E8F0" strokeWidth="1" />
-                  <path
-                    d="M 85 90 C 80 80, 100 80, 95 90 C 90 100, 80 95, 85 85 C 90 75, 105 85, 100 95 C 95 105, 80 100, 75 90 C 70 80, 90 70, 105 80 C 115 90, 100 110, 85 105 C 70 100, 75 80, 90 75 C 105 70, 110 95, 95 105 C 80 115, 65 90, 80 80"
-                    stroke="#94A3B8"
-                    strokeWidth="1.2"
-                    fill="none"
-                  />
-                </svg>
-              </div>
-
-              {/* Middle Arrow */}
-              <div className="flex items-center justify-center text-[#CBD5E1] mx-1 sm:mx-2">
-                <svg className="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </div>
-
-              {/* Right side: Unified Karvao Box */}
-              <div className="w-[38%] flex flex-col items-center gap-2 sm:gap-3">
-                <div className="w-full py-5 sm:py-8 px-3 sm:px-4 bg-white border border-border/60 rounded-2xl flex flex-col items-center justify-center shadow-[0_2px_8px_rgba(10,25,49,0.04)]">
-                  <span className="text-sm sm:text-base font-black text-navy leading-none">KARVAO</span>
-                  <span className="text-[7px] sm:text-[8px] font-bold text-grey tracking-[0.2em] leading-none mt-0.5">INDIA</span>
-                  <div className="w-8 sm:w-10 h-0.5 bg-blue-bright rounded-full mt-3 sm:mt-4" />
-                </div>
-                <span className="text-[9px] sm:text-[10px] font-black text-blue-bright tracking-wide text-center uppercase block mt-1 leading-normal">
-                  One System.<br />One Growth Engine.
-                </span>
-              </div>
-            </div>
+            <ChallengeVisualCard />
           </RevealOnScroll>
         </div>
       </section>
@@ -313,66 +196,14 @@ export default async function HomePage() {
       {/* 5. SOLUTIONS SECTION */}
       <SolutionsSection />
 
-      {/* 6. INDUSTRIES */}
-      <section className="pt-10 pb-8 md:pt-16 md:pb-14 bg-white border-t border-border" id="industries">
-        <div className="page-container">
-          <RevealOnScroll>
-            <div className="text-center mb-5 md:mb-6">
-              <span className="text-[11px] font-black tracking-[0.2em] text-blue-bright uppercase block mb-3">
-                INDUSTRIES
-              </span>
-              <h2 className="text-[24px] sm:text-[28px] md:text-[40px] font-extrabold tracking-tight text-navy leading-tight">
-                {await getContent('industries_headline', 'Built around how your business works.', contentMap)}
-              </h2>
-            </div>
-          </RevealOnScroll>
-
-          <RevealOnScroll delay={0.1}>
-            <div className="flex items-center gap-3 overflow-x-auto pb-3 scrollbar-hide">
-              <button aria-label="Previous industries" className="w-9 h-9 rounded-full border border-border/60 bg-white flex items-center justify-center text-grey shadow-[0_1px_3px_rgba(10,25,49,0.04)] hover:border-blue-bright hover:text-blue-bright hover:shadow-[0_2px_8px_rgba(0,102,255,0.1)] transition-all flex-shrink-0">
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-
-              {[
-                { name: 'Auto Dealers', icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M5 17h14v-4H5v4zm0 0a2 2 0 100-4 2 2 0 000 4zm14 0a2 2 0 100-4 2 2 0 000 4zM6 9l2-4h8l2 4H6z" /> },
-                { name: 'Clinics & Healthcare', icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2h3a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9a2 2 0 012-2h3zm2 6h4m-2-2v4" /> },
-                { name: 'Restaurants & Food', icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 2v20M18 8v14M18 4a3 3 0 00-3 3v5a3 3 0 006 0V7a3 3 0 00-3-3zM6 3v8a3 3 0 003 3h0a3 3 0 003-3V3M9 3v8" /> },
-                { name: 'Real Estate', icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /> },
-                { name: 'Retail & D2C', icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /> },
-                { name: 'Education', icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /> },
-              ].map((ind) => (
-                <div key={ind.name} className="group flex flex-col items-center gap-2.5 min-w-[110px] text-center cursor-default">
-                  <div className="w-[64px] h-[64px] rounded-2xl bg-blue-surface/80 border border-[#CCE0FF]/40 flex items-center justify-center group-hover:border-blue-bright/50 group-hover:bg-[#EBF4FF] group-hover:shadow-[0_4px_16px_rgba(0,102,255,0.08)] group-hover:-translate-y-[3px] group-hover:scale-[1.05] transition-all duration-200 ease-out">
-                    <svg className="w-6 h-6 text-blue-medium group-hover:text-blue-bright transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      {ind.icon}
-                    </svg>
-                  </div>
-                  <span className="text-[13px] font-semibold text-navy group-hover:text-blue-bright transition-colors duration-200">{ind.name}</span>
-                </div>
-              ))}
-
-              <button aria-label="Next industries" className="w-9 h-9 rounded-full border border-border/60 bg-white flex items-center justify-center text-grey shadow-[0_1px_3px_rgba(10,25,49,0.04)] hover:border-blue-bright hover:text-blue-bright hover:shadow-[0_2px_8px_rgba(0,102,255,0.1)] transition-all flex-shrink-0">
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-          </RevealOnScroll>
-
-          <RevealOnScroll delay={0.2}>
-            <div className="flex items-center justify-center gap-2 mt-4">
-              <span className="text-[11px] font-bold text-grey">1 / 6</span>
-              <div className="flex items-center gap-1.5">
-                {[0,1,2,3,4,5].map((i) => (
-                  <span key={i} className={`block rounded-full transition-all duration-300 ${ i === 0 ? 'w-4 h-1.5 bg-blue-bright' : 'w-1.5 h-1.5 bg-[#CBD5E1]'}`} />
-                ))}
-              </div>
-            </div>
-          </RevealOnScroll>
-        </div>
-      </section>
+      {/* 6. INDUSTRIES SECTION */}
+      <IndustriesSection
+        headline={await getContent(
+          'industries_headline',
+          'Built for Indian industries that move fast.',
+          contentMap
+        )}
+      />
 
       {/* 7. PROJECTS */}
       <ProjectsSection />

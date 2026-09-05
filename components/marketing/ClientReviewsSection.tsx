@@ -55,9 +55,18 @@ export const ClientReviewsSection: React.FC = async () => {
                 </p>
               </div>
               <div className="flex items-center gap-3.5 pt-5 border-t border-border/60">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-bright to-blue-medium flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
-                  {t.name.charAt(0)}
-                </div>
+                {t.photoUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={t.photoUrl}
+                    alt={t.name}
+                    className="w-10 h-10 rounded-full object-cover flex-shrink-0 border border-border"
+                  />
+                ) : (
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-bright to-blue-medium flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+                    {t.name.charAt(0)}
+                  </div>
+                )}
                 <div>
                   <span className="text-sm font-bold text-navy block">{t.name}</span>
                   <span className="text-[12px] text-grey">{t.role}, {t.company}</span>

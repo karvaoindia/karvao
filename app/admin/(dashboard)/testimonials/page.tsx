@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { ImageUpload } from '@/components/admin/ImageUpload'
 
 interface Testimonial {
   id: string
@@ -67,27 +68,50 @@ export default function AdminTestimonialsPage() {
       </div>
 
       {(editing === 'new' || editing) && (
-        <Card className="p-6 bg-white border border-border space-y-4">
-          <h3 className="font-bold text-navy">{editing === 'new' ? 'New Testimonial' : 'Edit Testimonial'}</h3>
-          <div className="grid grid-cols-3 gap-4">
-            <Input label="Client Name" value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} />
-            <Input label="Company" value={form.company} onChange={e => setForm(p => ({ ...p, company: e.target.value }))} />
-            <Input label="Role" value={form.role} onChange={e => setForm(p => ({ ...p, role: e.target.value }))} />
+        <Card className="p-6 bg-white border border-border space-y-5">
+          <h3 className="font-bold text-navy text-lg">{editing === 'new' ? 'New Testimonial' : 'Edit Testimonial'}</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Input label="Client Name" placeholder="e.g. Rahul Sharma" value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} />
+            <Input label="Company" placeholder="e.g. FinGrow Technologies" value={form.company} onChange={e => setForm(p => ({ ...p, company: e.target.value }))} />
+            <Input label="Role" placeholder="e.g. Managing Director" value={form.role} onChange={e => setForm(p => ({ ...p, role: e.target.value }))} />
           </div>
           <div className="flex flex-col gap-1.5">
             <label className="text-sm font-semibold text-navy">Review</label>
-            <textarea value={form.review} onChange={e => setForm(p => ({ ...p, review: e.target.value }))} className="w-full px-3 py-2 border border-border rounded-lg text-sm text-navy focus:outline-none focus:border-blue-bright min-h-[80px]" />
+            <textarea
+              value={form.review}
+              onChange={e => setForm(p => ({ ...p, review: e.target.value }))}
+              placeholder="What did the client say about working with Karvao?"
+              className="w-full px-3 py-2 border border-border rounded-lg text-sm text-navy focus:outline-none focus:border-blue-bright min-h-[80px]"
+            />
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <Input label="Rating (1-5)" type="number" value={String(form.rating)} onChange={e => setForm(p => ({ ...p, rating: Number(e.target.value) }))} />
-            <Input label="Photo URL" value={form.photoUrl} onChange={e => setForm(p => ({ ...p, photoUrl: e.target.value }))} />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+            <Input
+              label="Rating (1-5 stars)"
+              type="number"
+              min="1"
+              max="5"
+              value={String(form.rating)}
+              onChange={e => setForm(p => ({ ...p, rating: Number(e.target.value) }))}
+            />
+
+            {/* Direct Client Photo Upload */}
+            <ImageUpload
+              label="Client Photo / Avatar"
+              value={form.photoUrl}
+              onChange={url => setForm(p => ({ ...p, photoUrl: url }))}
+              folder="testimonials"
+              aspectRatio="avatar"
+              helperText="Upload client avatar photo from your computer."
+            />
           </div>
-          <label className="flex items-center gap-2 text-sm font-semibold text-navy">
-            <input type="checkbox" checked={form.featured} onChange={e => setForm(p => ({ ...p, featured: e.target.checked }))} className="rounded" />
-            Featured
+
+          <label className="flex items-center gap-2 text-sm font-semibold text-navy cursor-pointer">
+            <input type="checkbox" checked={form.featured} onChange={e => setForm(p => ({ ...p, featured: e.target.checked }))} className="rounded w-4 h-4 text-blue-bright" />
+            Featured Review
           </label>
-          <div className="flex gap-3">
-            <Button variant="primary" size="sm" onClick={() => saveTestimonial(editing === 'new' ? undefined : editing)}>Save</Button>
+          <div className="flex gap-3 pt-2">
+            <Button variant="primary" size="sm" onClick={() => saveTestimonial(editing === 'new' ? undefined : editing)}>Save Testimonial</Button>
             <Button variant="outline" size="sm" onClick={() => setEditing(null)}>Cancel</Button>
           </div>
         </Card>
@@ -95,20 +119,32 @@ export default function AdminTestimonialsPage() {
 
       <div className="space-y-3">
         {testimonials.map(t => (
-          <Card key={t.id} className="p-5 bg-white border border-border flex items-center justify-between">
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2">
-                <h3 className="text-sm font-bold text-navy">{t.name}</h3>
-                <span className="text-xs text-grey">- {t.role}, {t.company}</span>
-              </div>
-              <p className="text-xs text-grey line-clamp-2 mt-1">{t.review}</p>
-              <div className="flex items-center gap-1 mt-1">
-                {Array.from({length: 5}).map((_, i) => (
-                  <span key={i} className={`text-xs ${i < t.rating ? 'text-[#F59E0B]' : 'text-[#E2E8F0]'}`}>&#9733;</span>
-                ))}
+          <Card key={t.id} className="p-4 sm:p-5 bg-white border border-border flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3.5 min-w-0 flex-1">
+              {t.photoUrl ? (
+                <div className="w-11 h-11 rounded-full overflow-hidden border border-border shrink-0 bg-blue-surface shadow-xs">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={t.photoUrl} alt={t.name} className="w-full h-full object-cover" />
+                </div>
+              ) : (
+                <div className="w-11 h-11 rounded-full bg-blue-bright/10 text-blue-bright flex items-center justify-center text-sm font-bold shrink-0 border border-blue-bright/20">
+                  {t.name.charAt(0)}
+                </div>
+              )}
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2">
+                  <h3 className="text-sm font-bold text-navy truncate">{t.name}</h3>
+                  <span className="text-xs text-grey truncate">- {t.role}, {t.company}</span>
+                </div>
+                <p className="text-xs text-grey line-clamp-2 mt-0.5">{t.review}</p>
+                <div className="flex items-center gap-1 mt-1">
+                  {Array.from({length: 5}).map((_, i) => (
+                    <span key={i} className={`text-xs ${i < t.rating ? 'text-[#F59E0B]' : 'text-[#E2E8F0]'}`}>&#9733;</span>
+                  ))}
+                </div>
               </div>
             </div>
-            <div className="flex items-center gap-2 ml-4">
+            <div className="flex items-center gap-3 shrink-0">
               {t.featured && <span className="text-[10px] font-bold text-green bg-[#ECFDF5] px-2 py-0.5 rounded-full">Featured</span>}
               <button onClick={() => { setEditing(t.id); setForm({ name: t.name, company: t.company, role: t.role, review: t.review, rating: t.rating, photoUrl: t.photoUrl || '', featured: t.featured }) }} className="text-xs font-bold text-blue-bright hover:underline">Edit</button>
               <button onClick={() => deleteTestimonial(t.id)} className="text-xs font-bold text-red hover:underline">Delete</button>

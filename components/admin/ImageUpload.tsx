@@ -204,14 +204,10 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
     }
   }
 
-  // Aspect ratio classes
-  const aspectClasses = {
-    avatar: 'w-24 h-24 rounded-full mx-auto',
-    video: 'w-full aspect-video rounded-xl',
-    square: 'w-full max-w-[240px] aspect-square rounded-xl',
-    wide: 'w-full aspect-[21/9] rounded-xl',
-    auto: 'w-full max-h-56 rounded-xl',
-  }[aspectRatio]
+  // Compact fixed-size thumbnail for the preview row (always small regardless of aspectRatio)
+  const thumbClasses = aspectRatio === 'avatar'
+    ? 'w-14 h-14 rounded-full'
+    : 'w-24 h-16 rounded-lg'
 
   const filteredLibrary = libraryItems.filter((item) =>
     item.filename.toLowerCase().includes(searchLibrary.toLowerCase())
@@ -233,12 +229,11 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
         </div>
       )}
 
-      {/* Existing Value Preview */}
+      {/* Existing Value Preview — compact row */}
       {value ? (
-        <div className="relative p-3 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl flex flex-col sm:flex-row items-center gap-4">
-          <div
-            className={`relative overflow-hidden bg-white border border-[#CBD5E1] shadow-xs flex items-center justify-center shrink-0 ${aspectClasses}`}
-          >
+        <div className="p-3 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl flex items-center gap-3 overflow-hidden">
+          {/* Small fixed thumbnail */}
+          <div className={`relative overflow-hidden bg-white border border-[#CBD5E1] shrink-0 ${thumbClasses}`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={value}
@@ -250,46 +245,31 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
             />
           </div>
 
-          <div className="flex-1 min-w-0 w-full">
-            <p className="text-xs font-mono text-[#0B1220] truncate bg-white px-2.5 py-1.5 rounded-lg border border-[#E2E8F0]">
-              {value}
+          {/* Info + actions */}
+          <div className="flex-1 min-w-0">
+            <p className="text-[11px] font-mono text-[#475569] truncate">
+              {value.startsWith('data:') ? 'Uploaded image (stored)' : value}
             </p>
-            <div className="flex flex-wrap items-center gap-2 mt-2">
+            <div className="flex flex-wrap gap-1.5 mt-1.5">
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="text-xs font-bold text-[#1264FF] hover:bg-[#1264FF]/10 px-3 py-1.5 rounded-lg transition-colors inline-flex items-center gap-1"
+                className="text-[11px] font-bold text-[#1264FF] hover:bg-[#1264FF]/10 px-2 py-1 rounded-md transition-colors"
               >
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
-                  />
-                </svg>
-                Replace Image
+                Replace
               </button>
               <button
                 type="button"
                 onClick={handleOpenLibrary}
-                className="text-xs font-bold text-[#475569] hover:bg-[#F1F5F9] px-3 py-1.5 rounded-lg border border-[#CBD5E1] transition-colors"
+                className="text-[11px] font-bold text-[#475569] hover:bg-[#F1F5F9] px-2 py-1 rounded-md border border-[#CBD5E1] transition-colors"
               >
-                Change from Library
+                From Library
               </button>
               <button
                 type="button"
                 onClick={handleRemove}
-                className="text-xs font-bold text-red-600 hover:bg-red-50 px-3 py-1.5 rounded-lg transition-colors inline-flex items-center gap-1"
+                className="text-[11px] font-bold text-red-600 hover:bg-red-50 px-2 py-1 rounded-md transition-colors"
               >
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                  />
-                </svg>
                 Remove
               </button>
             </div>

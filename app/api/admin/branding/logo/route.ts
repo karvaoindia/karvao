@@ -52,18 +52,21 @@ export async function POST(req: NextRequest) {
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
 
-    const uploadsDir = path.join(process.cwd(), 'public', 'uploads')
-    if (!existsSync(uploadsDir)) {
-      await mkdir(uploadsDir, { recursive: true })
-    }
-
-    const ext = path.extname(file.name) || `.${file.type.split('/')[1]}`
+    let publicUrl = `data:${file.type};base64,${buffer.toString('base64')}`
+    const ext = path.extname(file.name) || `.${file.type.split('/')[1] || 'png'}`
     const filename = `logo-${Date.now()}${ext}`
-    const filePath = path.join(uploadsDir, filename)
 
-    await writeFile(filePath, buffer)
-
-    const publicUrl = `/uploads/${filename}`
+    try {
+      const uploadsDir = path.join(process.cwd(), 'public', 'uploads')
+      if (!existsSync(uploadsDir)) {
+        await mkdir(uploadsDir, { recursive: true })
+      }
+      const filePath = path.join(uploadsDir, filename)
+      await writeFile(filePath, buffer)
+      publicUrl = `/uploads/${filename}`
+    } catch {
+      // Vercel serverless read-only filesystem fallback: keep data URL
+    }
 
     // Save/update in SiteContent
     await prisma.siteContent.upsert({

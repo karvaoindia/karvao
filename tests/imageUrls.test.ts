@@ -2,11 +2,17 @@ import { describe, it, expect } from 'vitest'
 import { normalizeImageUrl, validateImageUrl } from '../lib/imageUrls'
 
 describe('Image URLs utility', () => {
-  it('normalizes and validates relative upload paths', () => {
+  it('normalizes and validates relative upload paths and data URLs', () => {
     expect(normalizeImageUrl('/uploads/project-hero.png')).toBe('/uploads/project-hero.png')
+    expect(normalizeImageUrl('/api/media/abc-123')).toBe('/api/media/abc-123')
+    expect(normalizeImageUrl('data:image/png;base64,iVBORw0KGgo=')).toBe('data:image/png;base64,iVBORw0KGgo=')
     expect(validateImageUrl('/uploads/testimonial-avatar.webp')).toEqual({
       valid: true,
       normalized: '/uploads/testimonial-avatar.webp',
+    })
+    expect(validateImageUrl('/api/media/abc-123')).toEqual({
+      valid: true,
+      normalized: '/api/media/abc-123',
     })
   })
 

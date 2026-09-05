@@ -25,7 +25,19 @@ export async function GET() {
     orderBy: { createdAt: 'desc' },
   })
 
-  return NextResponse.json({ media })
+  // Format data URLs into lightweight /api/media/${id} links for client consumption
+  const formattedMedia = media.map((item) => ({
+    id: item.id,
+    filename: item.filename,
+    url: item.url.startsWith('data:') ? `/api/media/${item.id}` : item.url,
+    altText: item.altText,
+    mimeType: item.mimeType,
+    size: item.size,
+    folder: item.folder,
+    createdAt: item.createdAt,
+  }))
+
+  return NextResponse.json({ media: formattedMedia })
 }
 
 export async function POST(req: NextRequest) {
@@ -70,15 +82,10 @@ export async function POST(req: NextRequest) {
       }
       if (file.size > MAX_FILE_SIZE) {
         return NextResponse.json(
-          { error: `File "${file.name}" exceeds the 10MB limit.` },
+          { error: `File "${file.name}" exceeds the limit.` },
           { status: 400 }
         )
       }
-    }
-
-    const uploadsDir = path.join(process.cwd(), 'public', 'uploads')
-    if (!existsSync(uploadsDir)) {
-      await mkdir(uploadsDir, { recursive: true })
     }
 
     const savedMedia = []
@@ -98,16 +105,32 @@ export async function POST(req: NextRequest) {
 
       const uniqueSuffix = `${Date.now()}-${Math.random().toString(36).substring(2, 8)}`
       const filename = `${baseName ? `${baseName}-` : ''}${uniqueSuffix}${ext}`
-      const filePath = path.join(uploadsDir, filename)
 
-      await writeFile(filePath, buffer)
+      let isDiskSaved = false
+      let localDiskUrl = `/uploads/${filename}`
 
-      const publicUrl = `/uploads/${filename}`
+      // Attempt to save to local public/uploads (works on local servers)
+      try {
+        const uploadsDir = path.join(process.cwd(), 'public', 'uploads')
+        if (!existsSync(uploadsDir)) {
+          await mkdir(uploadsDir, { recursive: true })
+        }
+        const filePath = path.join(uploadsDir, filename)
+        await writeFile(filePath, buffer)
+        isDiskSaved = true
+      } catch (fsErr) {
+        // Expected on read-only serverless platforms like Vercel
+        isDiskSaved = false
+      }
+
+      // If disk write is unsupported (Vercel), store base64 data URL in the database
+      const dataUrl = `data:${file.type};base64,${buffer.toString('base64')}`
+      const storedUrl = isDiskSaved ? localDiskUrl : dataUrl
 
       const mediaRecord = await prisma.media.create({
         data: {
           filename,
-          url: publicUrl,
+          url: storedUrl,
           mimeType: file.type,
           size: file.size,
           altText: altText || baseName || file.name,
@@ -115,7 +138,13 @@ export async function POST(req: NextRequest) {
         },
       })
 
-      savedMedia.push(mediaRecord)
+      // The publicly accessible URL for the frontend
+      const publicUrl = isDiskSaved ? localDiskUrl : `/api/media/${mediaRecord.id}`
+
+      savedMedia.push({
+        ...mediaRecord,
+        url: publicUrl,
+      })
     }
 
     if (savedMedia.length === 1) {

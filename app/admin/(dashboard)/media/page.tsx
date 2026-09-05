@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
+import { compressImageFile } from '@/components/admin/ImageUpload'
 
 interface MediaItem {
   id: string
@@ -55,7 +56,8 @@ export default function AdminMediaPage() {
     try {
       const formData = new FormData()
       for (let i = 0; i < files.length; i++) {
-        formData.append('files', files[i])
+        const compressed = await compressImageFile(files[i])
+        formData.append('files', compressed)
       }
       formData.append('folder', selectedFolder === 'all' ? 'uploads' : selectedFolder)
 

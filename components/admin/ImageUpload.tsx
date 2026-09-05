@@ -23,6 +23,59 @@ interface ImageUploadProps {
   required?: boolean
 }
 
+// Client-side image compression helper to ensure fast uploads on Vercel
+export async function compressImageFile(file: File, maxDimension = 1920, quality = 0.85): Promise<File> {
+  if (typeof window === 'undefined') return file
+  // Keep SVG vectors and GIF animations untouched
+  if (file.type === 'image/svg+xml' || file.type === 'image/gif') {
+    return file
+  }
+
+  return new Promise((resolve) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = (event) => {
+      const img = new Image()
+      img.src = event.target?.result as string
+      img.onload = () => {
+        let { width, height } = img
+        if (width > maxDimension || height > maxDimension) {
+          if (width > height) {
+            height = Math.round((height * maxDimension) / width)
+            width = maxDimension
+          } else {
+            width = Math.round((width * maxDimension) / height)
+            height = maxDimension
+          }
+        }
+        const canvas = document.createElement('canvas')
+        canvas.width = width
+        canvas.height = height
+        const ctx = canvas.getContext('2d')
+        ctx?.drawImage(img, 0, 0, width, height)
+        const outputType = file.type === 'image/png' ? 'image/png' : 'image/webp'
+        canvas.toBlob(
+          (blob) => {
+            if (blob) {
+              const ext = outputType === 'image/webp' ? '.webp' : '.png'
+              const newFile = new File([blob], file.name.replace(/\.[^/.]+$/, '') + ext, {
+                type: outputType,
+              })
+              resolve(newFile)
+            } else {
+              resolve(file)
+            }
+          },
+          outputType,
+          quality
+        )
+      }
+      img.onerror = () => resolve(file)
+    }
+    reader.onerror = () => resolve(file)
+  })
+}
+
 export const ImageUpload: React.FC<ImageUploadProps> = ({
   label,
   value,
@@ -89,18 +142,15 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
       return
     }
 
-    // Validate size (10MB max)
-    if (file.size > 10 * 1024 * 1024) {
-      setUploadError('Image size exceeds 10MB limit.')
-      return
-    }
-
     setUploadError(null)
     setUploading(true)
 
     try {
+      // Compress and optimize image to ensure instant upload and compliance with serverless limits
+      const processedFile = await compressImageFile(file)
+
       const formData = new FormData()
-      formData.append('file', file)
+      formData.append('file', processedFile)
       formData.append('folder', folder)
 
       const res = await fetch('/api/admin/media', {

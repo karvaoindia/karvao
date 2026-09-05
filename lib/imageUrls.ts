@@ -75,8 +75,8 @@ export function normalizeImageUrl(rawUrl: string): string | null {
   const trimmed = rawUrl.trim()
   if (!trimmed) return null
 
-  // Support local relative paths (e.g. /uploads/...)
-  if (trimmed.startsWith('/')) {
+  // Support local relative paths (e.g. /uploads/..., /api/media/...) and data: URLs
+  if (trimmed.startsWith('/') || trimmed.startsWith('data:image/')) {
     return trimmed
   }
 
@@ -116,8 +116,8 @@ export function validateImageUrl(rawUrl: string): {
   const trimmed = rawUrl.trim()
   if (!trimmed) return { valid: false, normalized: null, error: 'URL is required' }
 
-  // Support local relative paths (e.g. /uploads/...)
-  if (trimmed.startsWith('/')) {
+  // Support local relative paths (e.g. /uploads/..., /api/media/...) and data: URLs
+  if (trimmed.startsWith('/') || trimmed.startsWith('data:image/')) {
     return { valid: true, normalized: trimmed }
   }
 

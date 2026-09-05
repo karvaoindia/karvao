@@ -1,73 +1,100 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
-import { Button } from '@/components/ui/Button'
-import { prisma } from '@/lib/prisma'
+import type { Metadata } from 'next';
+import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
-  title: 'About Us | Digital Growth Partner | KARVAO India',
-  description:
-    'Karvao India is a digital growth partner for local and regional businesses across India. We combine strategy, technology and execution to build sustainable growth systems.',
-  alternates: {
-    canonical: '/about',
-  },
-}
+  title: 'About Karvao India – Digital Growth Partner',
+  description: "Learn about Karvao India's mission, approach, and why we are the trusted partner for building, growing, converting, automating, and measuring business growth.",
+  alternates: { canonical: '/about' },
+};
+
+export const revalidate = 60;
 
 export default async function AboutPage() {
-  const contentItems = await prisma.siteContent.findMany({
-    where: { section: 'about' },
-    select: { key: true, value: true },
-  })
-  const contentMap = Object.fromEntries(contentItems.map(item => [item.key, item.value]))
+  // Pull content from SiteContent (placeholder for now)
+  const aboutContent = await prisma.siteContent.findFirst({
+    where: { page: 'about' },
+  });
+
+  const headline = aboutContent?.title ?? 'Empowering Your Business Growth';
+  const subhead =
+    aboutContent?.subtitle ??
+    "We build, grow, convert, automate and measure – all under one seamless system.";
+  const description =
+    aboutContent?.body ??
+    "Karvao India is a full‑stack digital growth partner. From stunning websites to data‑driven automation, we craft solutions that scale with your ambitions.";
+
   return (
     <div className="w-full bg-white">
-      <section className="py-10 md:py-20 bg-white border-b border-border">
-        <div className="page-container max-w-3xl">
-          <span className="text-xs font-black tracking-widest text-blue-bright uppercase block mb-4">ABOUT US</span>
+      {/* Hero Section */}
+      <section className="py-12 md:py-20 bg-white border-b border-border">
+        <div className="page-container text-center">
+          <span className="text-xs font-black tracking-widest text-blue-bright uppercase block mb-4">
+            ABOUT
+          </span>
           <h1 className="text-[28px] sm:text-4xl md:text-[52px] font-black tracking-tight text-navy leading-tight mb-4 md:mb-6">
-            {contentMap['about_headline'] || 'We grow businesses. Not just their metrics.'}
+            {headline}
           </h1>
-          <p className="text-sm sm:text-base md:text-lg text-[#475569] leading-relaxed">
-            {contentMap['about_subheadline'] || 'Karvao India is a digital growth partner for local and regional businesses across India. We combine strategy, technology and execution to build sustainable growth systems — not one-off campaigns.'}
+          <p className="text-sm sm:text-base md:text-lg text-[#475569] max-w-2xl mx-auto leading-relaxed">
+            {subhead}
           </p>
         </div>
       </section>
 
-      <section className="py-8 md:py-16">
-        <div className="page-container grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
-          <div className="flex flex-col gap-5 md:gap-6">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-navy">Our mission</h2>
-            <p className="text-[#475569] leading-relaxed">
-              Most businesses in India are underserved by digital agencies that either overcharge for basics or deliver vanity metrics without real business impact. We exist to change that — by building complete growth systems that actually move revenue.
-            </p>
-            <p className="text-[#475569] leading-relaxed">
-              We work closely with each client, understand their business model, and deploy the exact combination of website, marketing, CRM, automation and analytics that fits their stage and goals.
+      {/* Company Info Panel */}
+      <section className="py-8 md:py-16 bg-white">
+        <div className="page-container flex flex-col md:flex-row gap-8 md:gap-12 items-center">
+          <div className="flex-1">
+            <p className="text-sm md:text-base text-[#475569] leading-relaxed max-w-xl">
+              {description}
             </p>
           </div>
-          <div className="rounded-2xl p-10 border border-[#CCE0FF] bg-blue-surface flex flex-col gap-6">
-            {[
-              { label: 'Founded', value: '2023' },
-              { label: 'Headquarters', value: 'India' },
-              { label: 'Focus', value: 'SME & Local Businesses' },
-              { label: 'Approach', value: 'Full-Stack Digital Growth' },
-            ].map((item) => (
-              <div key={item.label} className="flex items-center justify-between border-b border-[#CCE0FF] pb-4 last:border-0 last:pb-0">
-                <span className="text-xs font-black text-grey uppercase tracking-wider">{item.label}</span>
-                <span className="text-sm font-bold text-navy">{item.value}</span>
-              </div>
-            ))}
+          <div className="flex-1 bg-blue-surface p-8 rounded-2xl border border-[#CCE0FF]">
+            <h2 className="text-2xl font-black text-navy mb-4">Our Approach</h2>
+            <ul className="flex flex-col gap-3">
+              <li className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-blue-bright" />
+                Build solid digital foundations
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-blue-bright" />
+                Grow demand with data‑driven campaigns
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-blue-bright" />
+                Convert leads through automated funnels
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-blue-bright" />
+                Automate operations for efficiency
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-blue-bright" />
+                Measure impact with real‑time dashboards
+              </li>
+            </ul>
           </div>
         </div>
       </section>
 
+      {/* Call‑to‑Action */}
       <section className="py-14 md:py-16 border-t border-[#CCE0FF] bg-blue-surface">
         <div className="page-container text-center">
-          <h2 className="text-2xl md:text-3xl font-black text-navy mb-4">Work with us</h2>
-          <p className="text-[#475569] mb-8 max-w-lg mx-auto">Ready to build a real growth system for your business?</p>
-          <Link href="/quotation" tabIndex={-1}>
-            <Button variant="primary">Get a Quotation</Button>
-          </Link>
+          <h2 className="text-2xl md:text-3xl font-black text-navy mb-4">
+            Ready to start your growth engine?
+          </h2>
+          <p className="text-[#475569] mb-8 max-w-lg mx-auto">
+            Get a free Business Score or request a custom quotation.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/business-score" className="px-6 py-2 bg-white text-navy rounded hover:bg-gray-100 transition">
+              Check Business Score
+            </a>
+            <a href="/quotation" className="px-6 py-2 bg-navy text-white rounded hover:bg-blue-800 transition">
+              Get a Quotation
+            </a>
+          </div>
         </div>
       </section>
     </div>
-  )
+  );
 }

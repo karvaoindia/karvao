@@ -174,13 +174,62 @@ model JobListing {
 }
 
 model Service {
-  id          String   @id @default(uuid())
-  title       String
-  category    String   // BUILD, GROW, CONVERT, AUTOMATE, MEASURE
-  description String   @db.Text
-  icon        String?
-  published   Boolean  @default(true)
-  sortOrder   Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                String   @id @default(uuid())
+  title             String
+  category          String   // BUILD, GROW, CONVERT, AUTOMATE, MEASURE
+  subtitle          String?
+  description       String   @db.Text
+  systemDescription String?  @db.Text
+  icon              String?
+  imageUrl          String?
+  accentColor       String?
+  ctaText           String?
+  ctaUrl            String?
+  published         Boolean  @default(true)
+  sortOrder         Int      @default(0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model CaseStudy {
+  id           String   @id @default(uuid())
+  title        String
+  client       String
+  industry     String
+  category     String   // BUILD, GROW, CONVERT, AUTOMATE, MEASURE
+  coverImage   String?
+  logoImage    String?
+  metric       String   // e.g. "4X"
+  metricLabel  String   // e.g. "ROAS Increase"
+  metricSub    String?  // e.g. "Meta Ads"
+  result       String   @db.Text
+  problem      String?  @db.Text
+  solution     String?  @db.Text
+  servicesUsed String?  // comma-separated
+  testimonial  String?  @db.Text
+  featured     Boolean  @default(false)
+  published    Boolean  @default(true)
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model SiteSettings {
+  id             String   @id @default(uuid())
+  phone          String?
+  email          String?
+  whatsapp       String?
+  address        String?
+  mapUrl         String?
+  linkedin       String?
+  instagram      String?
+  youtube        String?
+  brandName      String   @default("Karvao India")
+  tagline        String?
+  footerDesc     String?
+  primaryColor   String   @default("#1264FF")
+  metaTitle      String?
+  metaDesc       String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }

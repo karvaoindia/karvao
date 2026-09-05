@@ -60,7 +60,87 @@ async function main() {
   for (const item of contentItems) {
     await prisma.siteContent.create({ data: item })
   }
-  console.log(`Created ${contentItems.length} site content items`)
+  console.log(`Created ${contentItems.length} site content items`);
+  console.log('Prisma client keys:', Object.keys(prisma));
+  // Additional seed data for site settings, services, case studies, jobs, and contact submissions
+  await prisma.siteSettings.upsert({
+    where: { id: 'default' },
+    update: {},
+    create: {
+      phone: '+1-800-555-1234',
+      email: 'info@karvaoindia.com',
+      whatsapp: '+1-800-555-5678',
+      address: '123 Business St, Mumbai, India',
+      linkedin: 'https://linkedin.com/company/karvao',
+      instagram: 'https://instagram.com/karvao',
+      youtube: 'https://youtube.com/karvao',
+      primaryColor: '#1264FF',
+      metaTitle: 'Karvao India – Digital Marketing & Automation',
+      metaDesc: 'Expert digital marketing, automation, and growth solutions in India.',
+    },
+  });
+
+  const services = [
+    { title: 'Build', category: 'BUILD', description: 'Foundation and strategy for your digital presence.', accentColor: '#FF6B6B' },
+    { title: 'Grow', category: 'GROW', description: 'Scale your audience and engagement.', accentColor: '#4ECDC4' },
+    { title: 'Convert', category: 'CONVERT', description: 'Turn visitors into leads and customers.', accentColor: '#FF9F1C' },
+    { title: 'Automate', category: 'AUTOMATE', description: 'Streamline processes with marketing automation.', accentColor: '#1A535C' },
+    { title: 'Measure', category: 'MEASURE', description: 'Data-driven insights and performance tracking.', accentColor: '#FF6F91' },
+  ];
+  await prisma.service.createMany({
+    data: services,
+    skipDuplicates: true,
+  });
+
+
+
+  const caseStudies = [
+    {
+      title: 'E‑commerce Boost',
+      client: 'Shopify Store',
+      industry: 'E‑commerce',
+      category: 'CONVERT',
+      metric: '5X',
+      metricLabel: 'ROAS Increase',
+      result: 'Achieved 5× return on ad spend within 3 months.',
+      servicesUsed: 'BUILD, GROW, CONVERT',
+    },
+    {
+      title: 'Lead Generation for SaaS',
+      client: 'Tech SaaS Co.',
+      industry: 'Software',
+      category: 'GROW',
+      metric: '300%',
+      metricLabel: 'Lead Growth',
+      result: 'Tripled qualified leads with automated funnels.',
+      servicesUsed: 'GROW, AUTOMATE, MEASURE',
+    },
+  ];
+  await prisma.caseStudy.createMany({
+    data: caseStudies,
+    skipDuplicates: true,
+  });
+
+  }
+
+  const jobs = [
+    { title: 'Frontend Engineer', department: 'Engineering', description: 'Build responsive UI components using React and Tailwind.' },
+    { title: 'Digital Marketing Specialist', department: 'Marketing', description: 'Plan and execute performance campaigns across channels.' },
+  ];
+  for (const job of jobs) {
+    await prisma.jobListing.upsert({ where: { title: job.title }, update: job, create: job });
+  }
+
+  await prisma.contactSubmission.createMany({
+    data: [
+      { leadId: 'dummy1', message: 'I am interested in your services.' },
+      { leadId: 'dummy2', message: 'Please send a proposal.' },
+      { leadId: 'dummy3', message: 'Can we schedule a call?' },
+      { leadId: 'dummy4', message: 'Need more info on pricing.' },
+      { leadId: 'dummy5', message: 'Looking for a long‑term partner.' },
+    ],
+    skipDuplicates: true,
+  });
 
   // 2. Score Categories
   const categories = [

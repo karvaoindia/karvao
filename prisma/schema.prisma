@@ -175,7 +175,7 @@ model JobListing {
 
 model Service {
   id                String   @id @default(uuid())
-  title             String
+  title             String @unique
   category          String   // BUILD, GROW, CONVERT, AUTOMATE, MEASURE
   subtitle          String?
   description       String   @db.Text
